@@ -42,15 +42,15 @@ public:
             mRank(pRank) {
     }
 
-    Card(const Card& pObject);
+    Card(const Card& pObject) = default;
 
-    Card(Card&& pObject) noexcept;
+    Card(Card&& pObject) noexcept = default;
 
     virtual ~Card() = default;
 
-    Card& operator=(const Card& pObject);
+    Card& operator=(const Card& pObject) = default;
 
-    Card& operator=(Card&& pObject) noexcept;
+    Card& operator=(Card&& pObject) noexcept = default;
 
     bool isValid() const;
 
