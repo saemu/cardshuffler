@@ -6,7 +6,7 @@
 
 #include "Card.hpp"
 
-#include <chrono>
+#include <algorithm>
 #include <random>
 
 using cRank = Card::Rank;

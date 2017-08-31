@@ -11,7 +11,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& pOut, const Card& pCard);
 
-    enum Suit {
+    enum class Suit {
         eUnknown,
         eSpades,
         eHearts,

@@ -6,9 +6,9 @@ cmake_minimum_required( VERSION 3.0 FATAL_ERROR )
 
 project( cardshuffler )
 
-set(CMAKE_CXX_STANDARD 14)
+set( CMAKE_CXX_STANDARD 14 )
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+include( ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake )
 conan_basic_setup()
 
 if( MSVC )
@@ -18,7 +18,6 @@ else( MSVC )
 endif( MSVC )
 
 include_directories( src )
-
 add_subdirectory( src )
 
 enable_testing()
