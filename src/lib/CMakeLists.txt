@@ -7,7 +7,7 @@ set( SRCS
      Deck.cpp )
 
 set( HDRS
-     Card.h
-     Deck.h )
+     Card.hpp
+     Deck.hpp )
 
 add_library( cards ${SRCS} ${HDRS} )

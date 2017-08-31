@@ -1,10 +1,5 @@
 #
-# RUAG Schweiz AG
-# RUAG Aviation
-# Boenigstrasse 17
-# CH-3812 Wilderswil - Switzerland
-#
-# Copyright (c) 2015, RUAG Schweiz AG, all rights reserved.
+# Copyright 2016, Samuel Brand
 #
 
 set( SRCS

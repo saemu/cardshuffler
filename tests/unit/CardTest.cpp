@@ -1,13 +1,12 @@
-//
-// Created by Samuel Brand on 29.11.16.
-//
+/*
+ * Copyright 2016, Samuel Brand
+ */
 
-
-#include "lib/Card.h"
+#include "lib/Card.hpp"
 
 #include "gtest/gtest.h"
 
-TEST( CardTest, ConstructorTest ) {
+TEST( CardTest, SimpleConstructorTest ) {
 
     Card card;
     EXPECT_EQ( card.isValid(), false );
