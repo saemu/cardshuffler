@@ -9,10 +9,8 @@
 
 
 set( SRCS
-main.cpp
+Card.cpp
+Deck.cpp
 )
 
-add_subdirectory( lib )
-
-add_executable( cardshuffler ${SRCS} )
-target_link_libraries( cardshuffler cards )
+add_library( cards ${SRCS} )

@@ -16,5 +16,7 @@ if( MSVC )
 else( MSVC )
    add_compile_options( -std=c++11 -Wall -Wextra -Werror -fstack-protector-all )
 endif( MSVC )
-   
+
+include_directories( src )
+
 add_subdirectory( src )
