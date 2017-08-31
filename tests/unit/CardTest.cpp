@@ -6,27 +6,30 @@
 
 #include "gtest/gtest.h"
 
-TEST(CardTest, SimpleConstructorTest) {
-
-    Card card;
-    EXPECT_FALSE(card.isValid());
+void PrintTo(const Card& card, std::ostream* out) {
+    *out << "Card=[" << card << "]";
 }
 
-TEST(CardTest, ConstructorTest) {
+TEST(CardTest, SimpleConstructorTest) {
+    Card card;
+    EXPECT_EQ(card.isValid(), false);
+}
+
+TEST(CardTest, ConstructorNoThrowTest) {
     EXPECT_NO_THROW(Card(Card::Suit::eSpades, Card::Rank::eAce));
+}
 
-    {
-        Card card(Card::Suit::eClubs, Card::Rank::eKing);
-        EXPECT_TRUE(card.isValid());
-    }
+TEST(CardTest, ConstructorValidTest) {
+    Card card(Card::Suit::eClubs, Card::Rank::eKing);
+    EXPECT_EQ(card.isValid(), true);
+}
 
-    {
-        Card card(Card::Suit::eUnknown, Card::Rank::eQueen);
-        EXPECT_FALSE(card.isValid());
-    }
+TEST(CardTest, ConstructorInvalidSuitTest) {
+    Card card(Card::Suit::eUnknown, Card::Rank::eQueen);
+    EXPECT_EQ(card.isValid(), false);
+}
 
-    {
-        Card card(Card::Suit::eClubs, Card::Rank::eUnknown);
-        EXPECT_FALSE(card.isValid());
-    }
+TEST(CardTest, ConstructorInvalidRankTest) {
+    Card card(Card::Suit::eClubs, Card::Rank::eUnknown);
+    EXPECT_EQ(card.isValid(), false);
 }
