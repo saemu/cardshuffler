@@ -12,11 +12,15 @@ cmake_minimum_required( VERSION 3.0 FATAL_ERROR )
 project( cardshuffler )
 
 if( MSVC )
-   add_compile_options( /W4 /WX )
+    add_compile_options( /W4 /WX )
 else( MSVC )
-   add_compile_options( -std=c++11 -Wall -Wextra -Werror -fstack-protector-all )
+    add_compile_options( -std=c++14 -Wall -Wextra -Werror -fstack-protector-all )
 endif( MSVC )
 
 include_directories( src )
 
 add_subdirectory( src )
+add_subdirectory( googletest )
+
+enable_testing()
+add_subdirectory( tests )

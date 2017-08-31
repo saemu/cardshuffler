@@ -7,10 +7,10 @@
 # Copyright (c) 2015, RUAG Schweiz AG, all rights reserved.
 #
 
-
 set( SRCS
-Card.cpp
-Deck.cpp
-)
+     main.cpp )
 
-add_library( cards ${SRCS} )
+add_subdirectory( lib )
+
+add_executable( cardshuffler ${SRCS} )
+target_link_libraries( cardshuffler cards )
