@@ -33,6 +33,6 @@ class Deck
 
       std::vector< Card > mCards;
 
-      std::vector< Card >::reverse_iterator mCurrent;
+      std::vector< Card >::const_reverse_iterator mCurrent;
 
 };
