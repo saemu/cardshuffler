@@ -52,8 +52,9 @@ Deck::Deck() :
 }
 
 void Deck::shuffle() {
-    auto lSeed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(std::begin(mCards), std::end(mCards), std::default_random_engine(static_cast<unsigned int>(lSeed)));
+    std::random_device randomDevice;
+    std::mt19937 randomEngine(randomDevice());
+    std::shuffle(std::begin(mCards), std::end(mCards), randomEngine);
     mCurrent = mCards.rbegin();
 }
 
