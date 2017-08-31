@@ -2,8 +2,6 @@
 # Copyright 2016, Samuel Brand
 #
 
-include_directories(${CONAN_INCLUDE_DIRS})
-
 set( SRCS
      CardTest.cpp )
 

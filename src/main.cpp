@@ -30,10 +30,7 @@ namespace {
 
 }
 
-int main(int argc, char *argv[]) {
-    static_cast< void >( argc );
-    static_cast< void >( argv );
-
+int main(int, char**) {
     try {
         Deck lDeck;
 
@@ -51,7 +48,7 @@ int main(int argc, char *argv[]) {
 
 
         } while (running);
-    } catch (std::exception &ex) {
+    } catch (std::exception& ex) {
         std::cerr << ex.what() << std::endl;
         return EXIT_FAILURE;
     }
