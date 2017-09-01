@@ -48,7 +48,8 @@ Deck::Deck() :
                Card(cSuit::eClubs, cRank::eNine),
                Card(cSuit::eClubs, cRank::eEight),
                Card(cSuit::eClubs, cRank::eSeven),
-               Card(cSuit::eClubs, cRank::eSix)} {
+               Card(cSuit::eClubs, cRank::eSix)},
+        mCurrent(mCards.rbegin()) {
 }
 
 void Deck::shuffle() {

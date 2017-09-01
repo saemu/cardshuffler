@@ -3,7 +3,8 @@
 #
 
 set( SRCS
-     CardTest.cpp )
+     CardTest.cpp
+     DeckTest.cpp )
 
 
 add_executable( testrunner ${SRCS} )

@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "lib/Card.hpp"
-
 #include <vector>
 
 class Card;
