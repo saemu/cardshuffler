@@ -10,6 +10,7 @@ class Card {
 public:
 
     friend std::ostream& operator<<(std::ostream& pOut, const Card& pCard);
+    friend bool operator==(const Card& left, const Card& right) noexcept;
 
     enum class Suit {
         eUnknown,
@@ -32,10 +33,7 @@ public:
         eAce
     };
 
-    Card() :
-            mSuit(Suit::eUnknown),
-            mRank(Rank::eUnknown) {
-    }
+    Card() = default;
 
     Card(Suit pSuit, Rank pRank) :
             mSuit(pSuit),
@@ -56,8 +54,8 @@ public:
 
 private:
 
-    Suit mSuit;
-    Rank mRank;
+    Suit mSuit = Suit::eUnknown;
+    Rank mRank = Rank::eUnknown;
 
 
 };

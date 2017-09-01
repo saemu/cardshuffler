@@ -52,6 +52,10 @@ std::ostream& operator<<(std::ostream& pOut, const Card& pCard) {
     return pOut;
 }
 
+bool operator==(const Card& left, const Card& right) noexcept {
+    return left.mRank == right.mRank && left.mSuit == right.mSuit;
+}
+
 bool Card::isValid() const {
     return mSuit != Suit::eUnknown && mRank != Rank::eUnknown;
 
