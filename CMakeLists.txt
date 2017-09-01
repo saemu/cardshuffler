@@ -12,9 +12,10 @@ include( ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake )
 conan_basic_setup()
 
 if( MSVC )
-    add_compile_options( /W4 /WX )
+    set( CMAKE_CXX_FLAGS "/W4 /WX" )
 else( MSVC )
-    add_compile_options( -Wall -Wextra -fstack-protector-all )
+    set( CMAKE_CXX_FLAGS "-Wall -Wextra -fstack-protector-all" )
+    set( CMAKE_CXX_FLAGS_DEBUG  "-g" )
 endif( MSVC )
 
 include_directories( src )
