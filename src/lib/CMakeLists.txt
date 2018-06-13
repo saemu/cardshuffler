@@ -11,3 +11,7 @@ set( HDRS
      Deck.hpp )
 
 add_library( cards ${SRCS} ${HDRS} )
+target_include_directories( cards
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/src
+)
