@@ -11,7 +11,7 @@ install:
 - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
 
 # Install conan
-- pip install conan
+- pip install --user --upgrade conan
 # Automatic detection of your arch, compiler, etc.
 - conan user
 
