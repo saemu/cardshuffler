@@ -36,7 +36,7 @@ TEST(CardTest, ConstructorInvalidRankTest) {
 
 TEST(CardTest, CopyConstructorTest) {
     Card card(Card::Suit::eDiamonds, Card::Rank::eJack);
-    EXPECT_NO_THROW(Card(card));
+    EXPECT_NO_THROW((Card(card)));
     EXPECT_TRUE(card == Card(card));
 }
 
