@@ -6,6 +6,7 @@
 #include "lib/Deck.hpp"
 
 #include <map>
+#include <string>
 
 namespace {
 
