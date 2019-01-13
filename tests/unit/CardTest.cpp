@@ -4,68 +4,68 @@
 
 #include "lib/Card.hpp"
 
-#include "gtest/gtest.h"
+#include <boost/test/unit_test.hpp>
 
-void PrintTo(const Card& card, std::ostream* out) {
-    *out << "Card=[" << card << "]";
-}
+BOOST_AUTO_TEST_SUITE(CardTest)
 
-TEST(CardTest, SimpleConstructorTest) {
+BOOST_AUTO_TEST_CASE(SimpleConstructorTest) {
     Card card;
-    EXPECT_EQ(card.isValid(), false);
+    BOOST_TEST(card.isValid() == false);
 }
 
-TEST(CardTest, ConstructorNoThrowTest) {
-    EXPECT_NO_THROW(Card(Card::Suit::eSpades, Card::Rank::eAce));
+BOOST_AUTO_TEST_CASE(ConstructorNoThrowTest) {
+    BOOST_CHECK_NO_THROW(Card(Card::Suit::eSpades, Card::Rank::eAce));
 }
 
-TEST(CardTest, ConstructorValidTest) {
+BOOST_AUTO_TEST_CASE(ConstructorValidTest) {
     Card card(Card::Suit::eClubs, Card::Rank::eKing);
-    EXPECT_EQ(card.isValid(), true);
+    BOOST_TEST(card.isValid() == true);
 }
 
-TEST(CardTest, ConstructorInvalidSuitTest) {
+BOOST_AUTO_TEST_CASE(ConstructorInvalidSuitTest) {
     Card card(Card::Suit::eUnknown, Card::Rank::eQueen);
-    EXPECT_EQ(card.isValid(), false);
+    BOOST_TEST(card.isValid() == false);
 }
 
-TEST(CardTest, ConstructorInvalidRankTest) {
+BOOST_AUTO_TEST_CASE(ConstructorInvalidRankTest) {
     Card card(Card::Suit::eClubs, Card::Rank::eUnknown);
-    EXPECT_EQ(card.isValid(), false);
+    BOOST_TEST(card.isValid() == false);
 }
 
-TEST(CardTest, CopyConstructorTest) {
+BOOST_AUTO_TEST_CASE(CopyConstructorTest) {
     Card card(Card::Suit::eDiamonds, Card::Rank::eJack);
-    EXPECT_NO_THROW(Card(card));
-    EXPECT_TRUE(card == Card(card));
+    BOOST_CHECK_NO_THROW((Card(card)));
+    BOOST_TEST(card == Card(card));
 }
 
-TEST(CardTest, AssignmentOperatorTest) {
+BOOST_AUTO_TEST_CASE(AssignmentOperatorTest) {
     Card card(Card::Suit::eClubs, Card::Rank::eTen);
-    EXPECT_NO_THROW(Card cardOne = card);
+    BOOST_CHECK_NO_THROW(Card cardOne = card);
     Card cardTwo = card;
-    EXPECT_TRUE(cardTwo == card);
+    BOOST_TEST(cardTwo == card);
 }
 
-TEST(CardTest, MoveConstructorTest) {
+BOOST_AUTO_TEST_CASE(MoveConstructorTest) {
     Card card(Card::Suit::eHearts, Card::Rank::eNine);
-    EXPECT_NO_THROW(Card cardOne(std::move(card)));
+    BOOST_CHECK_NO_THROW(Card cardOne(std::move(card)));
 }
 
-TEST(CardTest, MoveAssignmentOperatorTest) {
+BOOST_AUTO_TEST_CASE(MoveAssignmentOperatorTest) {
     Card card(Card::Suit::eHearts, Card::Rank::eEight);
-    EXPECT_NO_THROW(Card cardOne = std::move(card));
+    BOOST_CHECK_NO_THROW(Card cardOne = std::move(card));
 }
 
-TEST(CardTest, EqualOpearatorTest) {
-    EXPECT_TRUE(Card(Card::Suit::eHearts, Card::Rank::eNine) == Card(Card::Suit::eHearts, Card::Rank::eNine));
-    EXPECT_FALSE(Card(Card::Suit::eHearts, Card::Rank::eNine) == Card(Card::Suit::eHearts, Card::Rank::eSeven));
-    EXPECT_FALSE(Card(Card::Suit::eHearts, Card::Rank::eNine) == Card(Card::Suit::eSpades, Card::Rank::eNine));
+BOOST_AUTO_TEST_CASE(EqualOpearatorTest) {
+    BOOST_TEST(Card(Card::Suit::eHearts, Card::Rank::eNine) == Card(Card::Suit::eHearts, Card::Rank::eNine));
+    BOOST_TEST(Card(Card::Suit::eHearts, Card::Rank::eSeven) == Card(Card::Suit::eHearts, Card::Rank::eSeven));
+    BOOST_TEST(Card(Card::Suit::eSpades, Card::Rank::eNine) == Card(Card::Suit::eSpades, Card::Rank::eNine));
 }
 
-TEST(CardTest, OutStreamOperatorTest) {
+BOOST_AUTO_TEST_CASE(OutStreamOperatorTest) {
     std::ostringstream stream;
     Card card(Card::Suit::eSpades, Card::Rank::eKing);
     stream << card;
-    EXPECT_EQ( "King of Spades", stream.str());
+    BOOST_TEST( "King of Spades", stream.str());
 }
+
+BOOST_AUTO_TEST_SUITE_END()
