@@ -11,18 +11,18 @@ configuration:
   - Release
 
 install:
-  - set PATH=%PATH%;%PYTHON%/Scripts/
+  - set PATH=%PYTHON%/Scripts/;%PATH%
   - pip.exe install conan --upgrade
   - conan user
 
 build_script:
-  - set PATH=%PATH%;%PYTHON%/Scripts/
+  - set PATH=%PYTHON%/Scripts/;%PATH%
   - mkdir build
   - cd  build
   - conan install ..
   - cmake ../ -G "Visual Studio 15 2017 Win64"
-  - cmake --build . --config $CONFIGURATION
+  - cmake --build . --config "%CONFIGURATION%"
 
 test_script:
   - cd build
-  - ctest -C $$CONFIGURATION
+  - ctest -C $"%CONFIGURATION%"
