@@ -1,21 +1,27 @@
+dist: xenial
+sudo: false
 language: cpp
-dist: trusty
 compiler:
   - gcc
 
-install:
-# Upgrade GCC
-- sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-- sudo apt-get update -qq
-- sudo apt-get install -qq g++-6
-- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-8
 
-# Install conan
-- pip install --user --upgrade conan
-# Automatic detection of your arch, compiler, etc.
-- conan user
+install:
+  # Upgrade GCC
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+  # Install conan
+  - pip install --user --upgrade conan
+  # Automatic detection of your arch, compiler, etc.
+  - conan user && conan config set compiler.libcxx=libstdc++11
 
 script:
-- mkdir build && cd build
-- conan install ../ --build gtest -s compiler.libcxx=libstdc++11
-- cmake .. && make -j`nproc` && make test
+  - mkdir build && cd build
+  - conan install ../ --build=missing -s compiler.libcxx=libstdc++11
+  - cmake ..
+  - cmake --build .
+  - ctest
