@@ -11,6 +11,9 @@ target_include_directories( cards
                             PUBLIC ${CMAKE_SOURCE_DIR}/src
                             )
 
+target_compile_features( cards
+                         PUBLIC cxx_std_14 )
+
 if( WIN32 )
     target_compile_options( cards
                             PUBLIC /W4 /WX
