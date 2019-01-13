@@ -21,7 +21,7 @@ build_script:
   - cd  build
   - conan install ..
   - cmake ../ -G "Visual Studio 15 2017 Win64"
-  - cmake --build . --config "%CONFIGURATION%"  -- -verbosity:minimal -p:Platform:x64
+  - cmake --build . --config "%CONFIGURATION%"  -- -verbosity:minimal
 
 test_script:
   - cd build
