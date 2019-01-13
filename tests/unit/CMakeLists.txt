@@ -4,11 +4,12 @@
 
 set( SRCS
      CardTest.cpp
-     DeckTest.cpp )
+     DeckTest.cpp
+     main.cpp )
 
 
 add_executable( testrunner ${SRCS} )
-target_link_libraries( testrunner cards ${CONAN_LIBS} )
+target_link_libraries( testrunner cards Boost::unit_test_framework )
 
 add_test( NAME unittests
           COMMAND testrunner )
