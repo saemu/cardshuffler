@@ -12,8 +12,7 @@ set( SRCS
 
 add_library( cards STATIC )
 target_sources( cards
-                PUBLIC ${HDRS}
-                PRIVATE ${SRCS} )
+                PRIVATE ${HDRS} ${SRCS} )
 
 target_include_directories( cards
                             PUBLIC ${CMAKE_SOURCE_DIR}/src
