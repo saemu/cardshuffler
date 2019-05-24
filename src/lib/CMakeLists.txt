@@ -2,11 +2,19 @@
 # Copyright 2016, Samuel Brand
 #
 
-add_library( cards Card.cpp
-             Deck.cpp
-             Card.hpp
-             Deck.hpp
-             )
+set( HDRS
+     Card.hpp
+     Deck.hpp )
+
+set( SRCS
+     Card.cpp
+     Deck.cpp )
+
+add_library( cards STATIC )
+target_sources( cards
+                PUBLIC ${HDRS}
+                PRIVATE ${SRCS} )
+
 target_include_directories( cards
                             PUBLIC ${CMAKE_SOURCE_DIR}/src
                             )
