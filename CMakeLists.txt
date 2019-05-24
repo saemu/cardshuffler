@@ -21,7 +21,7 @@ set( Boost_USE_STATIC_LIBS ON )
 set( Boost_USE_MULTITHREADED ON )
 set( Boost_USE_STATIC_RUNTIME $<$<COMPILER_ID:MSVC>:ON> )
 set( Boost_DEBUG ON )
-find_package( Boost 1.68.0 REQUIRED COMPONENTS unit_test_framework )
+find_package( Boost 1.70.0 REQUIRED COMPONENTS unit_test_framework )
 
 find_program( CLANG_TIDY clang-tidy )
 if( CLANG_TIDY )
