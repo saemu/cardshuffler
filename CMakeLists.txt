@@ -2,13 +2,14 @@
 # Copyright 2016, Samuel Brand
 #
 
-cmake_minimum_required( VERSION 3.0 FATAL_ERROR )
+cmake_minimum_required( VERSION 3.14 FATAL_ERROR )
 
 project( cardshuffler )
 
 if( EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake )
     include( ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake )
     conan_basic_setup()
+    conan_define_targets()
 else()
     message( WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first" )
 endif()
