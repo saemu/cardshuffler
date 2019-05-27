@@ -1,5 +1,11 @@
 # cardshuffler
-Simple example using CMake, Conan and GoogleTest
+Simple example using CMake, Conan and Boost Test.
+
+## Setup Instructions
+
+```shell
+pip install conan
+```
 
 ## Build Instructions
 
