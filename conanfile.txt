@@ -6,4 +6,4 @@ Boost:shared=False
 Boost:python=False
 
 [generators]
-cmake
+cmake_paths

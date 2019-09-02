@@ -6,10 +6,8 @@ cmake_minimum_required( VERSION 3.12 FATAL_ERROR )
 
 project( cardshuffler )
 
-if( EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake )
-    include( ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake )
-    conan_basic_setup()
-    conan_define_targets()
+if( EXISTS ${CMAKE_BINARY_DIR}/conan_paths.cmake )
+    include( ${CMAKE_BINARY_DIR}/conan_paths.cmake )
 else()
     message( WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first" )
 endif()
