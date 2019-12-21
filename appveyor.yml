@@ -7,7 +7,6 @@ platform:
   - x64
 
 configuration:
-  - Debug
   - Release
 
 install:
@@ -20,7 +19,7 @@ install:
 build_script:
   - set PATH=%PYTHON%/Scripts/;%PATH%
   - conan install .. --settings build_type=%CONFIGURATION% --build=missing
-  - cmake ../ -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE=%CONFIGURATION%
+  - cmake ../ -G "Visual Studio 15 2017 Win64"
   - cmake --build . --config %CONFIGURATION%  -- -verbosity:minimal
 
 test_script:
