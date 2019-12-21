@@ -28,7 +28,7 @@ if( WIN32 )
 else()
     target_compile_options( cards
                             PUBLIC
-                            -Wall -Wextra -fstack-protector-all
-                            $<$<CONFIG:Debug>:-ggdb -O0 -fno-inline>
+                            $<$<CXX_COMPILER_ID:GNU>:-Wall;-Wextra;-fstack-protector-all>
+                            $<$<CONFIG:Debug>:-g;-O0;-fno-inline;-coverage>
                             )
 endif()

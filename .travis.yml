@@ -1,21 +1,15 @@
-dist: xenial
+dist: bionic
 sudo: false
 language: cpp
+
 compiler:
   - gcc
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-8
 
 install:
   # Upgrade GCC
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
   # Install conan
-  - pip install --user --upgrade conan codecov
+  - pip install --user --upgrade conan
   # Automatic detection of your arch, compiler, etc.
   - conan user && conan config set compiler.libcxx=libstdc++11
 
@@ -25,6 +19,3 @@ script:
   - cmake ..
   - cmake --build .
   - ctest
-
-after_success: 
-  - codecov
