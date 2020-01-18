@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(OutStreamOperatorTest) {
     std::ostringstream stream;
     Card card(Card::Suit::eSpades, Card::Rank::eKing);
     stream << card;
-    BOOST_TEST( "King of Spades", stream.str());
+    BOOST_TEST("King of Spades", stream.str());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -10,26 +10,27 @@
 
 namespace {
 
+    // clang-format off
     const std::map<std::string, bool> validInputs{{"y",   true,},
                                                   {"yes", true,},
                                                   {"n",   false},
                                                   {"no",  false},};
+    // clang-format on
 
-    bool readAnswer() {
+bool readAnswer() {
+    std::string lQuit;
+    std::cout << "new shuffle [y/n]: ";
+    std::cin >> lQuit;
 
-        std::string lQuit;
-        std::cout << "new shuffle [y/n]: ";
-        std::cin >> lQuit;
-
-        auto answer = validInputs.find(lQuit);
-        if (answer == std::end(validInputs)) {
-            throw std::invalid_argument("your answer is wrong, exiting");
-        }
-
-        return answer->second;
+    auto answer = validInputs.find(lQuit);
+    if (answer == std::end(validInputs)) {
+        throw std::invalid_argument("your answer is wrong, exiting");
     }
 
+    return answer->second;
 }
+
+}  // namespace
 
 int main(int, char**) {
     try {
@@ -38,7 +39,6 @@ int main(int, char**) {
         bool running{true};
 
         do {
-
             lDeck.shuffle();
             do {
                 Card lCard = lDeck.drawNextCard();
@@ -46,7 +46,6 @@ int main(int, char**) {
             } while (lDeck.hasNext());
 
             running = readAnswer();
-
 
         } while (running);
     } catch (std::exception& ex) {
