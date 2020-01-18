@@ -21,14 +21,9 @@ target_include_directories( cards
 target_compile_features( cards
                          PUBLIC cxx_std_14 )
 
-if( WIN32 )
-    target_compile_options( cards
-                            PUBLIC /W4 /WX
-                            )
-else()
-    target_compile_options( cards
-                            PUBLIC
-                            $<$<CXX_COMPILER_ID:GNU>:-Wall;-Wextra;-fstack-protector-all>
-                            $<$<CONFIG:Debug>:-g;-O0;-fno-inline;-coverage>
-                            )
-endif()
+target_compile_options( cards
+                        PUBLIC
+                        $<$<CXX_COMPILER_ID:MSVC>:/W4;/WX>
+                        $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wall;-Wextra;-fstack-protector-all>
+                        $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:$<$<CONFIG:Debug>:-g;-O0;-fno-inline>>
+                        )
