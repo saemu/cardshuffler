@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(drawCardTest) {
 
 BOOST_AUTO_TEST_CASE(drawAllTest) {
     Deck deck;
-    while(deck.hasNext()) {
+    while (deck.hasNext()) {
         BOOST_CHECK_NO_THROW(deck.drawNextCard());
     }
 }
