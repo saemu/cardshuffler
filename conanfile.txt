@@ -1,5 +1,6 @@
 [requires]
 boost/1.72.0
+cmake/3.16.2
 
 [options]
 boost:shared=False
