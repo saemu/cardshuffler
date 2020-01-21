@@ -1,6 +1,7 @@
 [requires]
 boost/1.72.0
 cmake/3.16.2
+ninja/1.9.0
 
 [options]
 boost:shared=False
