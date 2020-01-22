@@ -24,7 +24,7 @@ build_script:
   - call "%env_script%"
   - set PATH=%PYTHON%/Scripts/;%PATH%
   - conan install .. --settings build_type=%configuration% --settings compiler.runtime=%runtime% --build=missing
-  - cmake ../ -G "Ninja"
+  - cmake ../ -G "Ninja" -DCMAKE_BUILD_TYPE=%configuration%
   - cmake --build . --config %configuration%
 
 test_script:
