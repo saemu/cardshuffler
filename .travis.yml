@@ -35,4 +35,4 @@ script:
   - cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
   - build-wrapper-linux-x86-64 --out-dir sonar cmake --build . --target all -- -v
   - ctest
-  - cd .. && sonar-scanner
+  - cd .. && sonar-scanner -X
