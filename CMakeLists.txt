@@ -12,6 +12,7 @@ else()
     message( WARNING "The file conan_paths.cmake doesn't exist, you have to run conan install first" )
 endif()
 
+set( GTEST_MSVC_SEARCH "MD" )
 find_package( GTest REQUIRED )
 
 add_subdirectory( src )
