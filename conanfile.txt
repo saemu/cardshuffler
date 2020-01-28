@@ -1,9 +1,9 @@
 [requires]
-boost/1.70.0@conan/stable
+boost/1.72.0
 
 [options]
-Boost:shared=False
-Boost:python=False
+boost:shared=False
+boost:without_python=True
 
 [generators]
 cmake_paths

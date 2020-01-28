@@ -1,14 +1,17 @@
 ---
 version: 1.0.{build}
 
-image: Visual Studio 2017
+image:
+  - Visual Studio 2019
 
-platform:
-  - x64
-
-configuration:
-  - Debug
-  - Release
+environment:
+  matrix:
+    - configuration: "Debug"
+      env_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"
+      runtime: "MDd"
+    - configuration: "Release"
+      env_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"
+      runtime: "MD"
 
 install:
   - set PATH=%PYTHON%/Scripts/;%PATH%
@@ -18,10 +21,11 @@ install:
   - cd build
 
 build_script:
+  - call "%env_script%"
   - set PATH=%PYTHON%/Scripts/;%PATH%
-  - conan install .. --settings build_type=%CONFIGURATION% --build=missing
-  - cmake ../ -G "Visual Studio 15 2017 Win64"
-  - cmake --build . --config %CONFIGURATION%  -- -verbosity:minimal
+  - conan install .. --settings build_type=%configuration% --settings compiler.runtime=%runtime% --build=missing
+  - cmake ../ -G "Ninja" -DCMAKE_BUILD_TYPE=%configuration%
+  - cmake --build . --config %configuration%
 
 test_script:
-  - ctest -C %CONFIGURATION%
+  - ctest -C %configuration%

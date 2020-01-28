@@ -2,7 +2,7 @@
 # Copyright 2016, Samuel Brand
 #
 
-cmake_minimum_required( VERSION 3.12 FATAL_ERROR )
+cmake_minimum_required( VERSION 3.15 FATAL_ERROR )
 
 project( cardshuffler )
 
@@ -16,12 +16,7 @@ set( Boost_NO_SYSTEM_PATHS ON )
 set( Boost_USE_STATIC_LIBS ON )
 set( Boost_USE_MULTITHREADED ON )
 set( Boost_USE_STATIC_RUNTIME $<$<COMPILER_ID:MSVC>:ON> )
-find_package( Boost 1.70.0 REQUIRED COMPONENTS unit_test_framework )
-
-find_program( CLANG_TIDY clang-tidy )
-if( CLANG_TIDY )
-    set( CMAKE_CXX_CLANG_TIDY ${CLANG_TIDY} )
-endif()
+find_package( Boost REQUIRED COMPONENTS unit_test_framework )
 
 add_subdirectory( src )
 
