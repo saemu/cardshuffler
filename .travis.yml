@@ -31,4 +31,4 @@ script:
   - cmake -G Ninja ..
   - build-wrapper-linux-x86-64 --out-dir sonar-build cmake --build .
   - ctest
-  - sonar-scanner
+  - cd .. && sonar-scanner
