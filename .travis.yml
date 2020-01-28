@@ -32,7 +32,7 @@ install:
 script:
   - mkdir build && cd build
   - conan install ../ --build=missing -s compiler.libcxx=libstdc++11
-  - cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
-  - build-wrapper-linux-x86-64 --out-dir sonar cmake --build . --target all -- -v
+  - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+  - build-wrapper-linux-x86-64 --out-dir sonar cmake --build . --target all VERBOSE=1
   - ctest
   - cd .. && sonar-scanner -X
