@@ -2,8 +2,8 @@
  * Copyright 2016, Samuel Brand
  */
 
-#include "lib/Deck.hpp"
 #include "lib/Card.hpp"
+#include "lib/Deck.hpp"
 
 #include <boost/test/unit_test.hpp>
 

@@ -10,12 +10,12 @@
 
 namespace {
 
-    // clang-format off
+// clang-format off
     const std::map<std::string, bool> validInputs{{"y",   true,},
                                                   {"yes", true,},
                                                   {"n",   false},
                                                   {"no",  false},};
-    // clang-format on
+// clang-format on
 
 bool readAnswer() {
     std::string lQuit;
