@@ -1,30 +1,27 @@
-dist: xenial
-sudo: false
+dist: bionic
 language: cpp
+
 compiler:
   - gcc
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-8
-
 install:
-  # Upgrade GCC
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+  # use latest CMake
+  - |
+      DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
+      CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-Linux-x86_64.tar.gz"
+      mkdir -p ${DEPS_DIR}/cmake
+      travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
+      export PATH=${DEPS_DIR}/cmake/bin:${PATH}
   # Install conan
-  - pip install --user --upgrade conan codecov
+  - pip install --user --upgrade conan
   # Automatic detection of your arch, compiler, etc.
   - conan user && conan config set compiler.libcxx=libstdc++11
+  # install ninja build
+  - sudo apt-get -y install ninja-build
 
 script:
   - mkdir build && cd build
   - conan install ../ --build=missing -s compiler.libcxx=libstdc++11
-  - cmake ..
+  - cmake -G Ninja ..
   - cmake --build .
   - ctest
-
-after_success: 
-  - codecov
