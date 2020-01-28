@@ -29,6 +29,6 @@ script:
   - mkdir build && cd build
   - conan install ../ --build=missing -s compiler.libcxx=libstdc++11
   - cmake -G Ninja ..
-  - build-wrapper-linux-x86-64 --out-dir sonar-build cmake --build .
+  - build-wrapper-linux-x86-64 --out-dir sonar cmake --build .
   - ctest
   - cd .. && sonar-scanner
