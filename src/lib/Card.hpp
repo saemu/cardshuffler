@@ -17,8 +17,7 @@ public:
 
     Card() = default;
 
-    Card(Suit pSuit, Rank pRank) : mSuit(pSuit), mRank(pRank) {
-    }
+    Card(Suit pSuit, Rank pRank) : mSuit(pSuit), mRank(pRank) {}
 
     Card(const Card& pObject) = default;
 

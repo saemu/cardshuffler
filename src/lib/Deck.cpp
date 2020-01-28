@@ -51,8 +51,7 @@ Deck::Deck()
            Card(cSuit::eClubs, cRank::eSeven),
            Card(cSuit::eClubs, cRank::eSix)},
        // clang-format on
-      mCurrent(mCards.rbegin()) {
-}
+      mCurrent(mCards.rbegin()) {}
 
 void Deck::shuffle() {
     std::random_device randomDevice;
