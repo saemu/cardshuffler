@@ -33,6 +33,6 @@ script:
   - mkdir build && cd build
   - conan install ../ --build=missing -s compiler.libcxx=libstdc++11
   - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
-  - build-wrapper-linux-x86-64 --out-dir sonar cmake --build . --target all VERBOSE=1
-  - ctest
-  - cd .. && sonar-scanner -X
+  - cd ..
+  - VERBOSE=1 build-wrapper-linux-x86-64 --out-dir sonar cmake --build build --target all test
+  - sonar-scanner
