@@ -27,38 +27,38 @@ static const std::map<Card::Suit, std::string> SuitStrings{{Card::Suit::eClubs, 
 // clang-format on
 
 std::ostream &operator<<(std::ostream &pOut, const Card::Rank &pRank) {
-  auto rankString = RankStrings.find(pRank);
-  if (rankString == std::end(RankStrings)) {
-    throw std::invalid_argument("Given Rank is invalid");
-  }
+    auto rankString = RankStrings.find(pRank);
+    if (rankString == std::end(RankStrings)) {
+        throw std::invalid_argument("Given Rank is invalid");
+    }
 
-  pOut << rankString->second;
+    pOut << rankString->second;
 
-  return pOut;
+    return pOut;
 }
 
 std::ostream &operator<<(std::ostream &pOut, const Card::Suit pSuit) {
-  auto suitString = SuitStrings.find(pSuit);
-  if (suitString == std::end(SuitStrings)) {
-    throw std::invalid_argument("Given Suit is invalid");
-  }
+    auto suitString = SuitStrings.find(pSuit);
+    if (suitString == std::end(SuitStrings)) {
+        throw std::invalid_argument("Given Suit is invalid");
+    }
 
-  pOut << suitString->second;
+    pOut << suitString->second;
 
-  return pOut;
+    return pOut;
 }
 
-} // namespace
+}  // namespace
 
 std::ostream &operator<<(std::ostream &pOut, const Card &pCard) {
-  pOut << pCard.mRank << " of " << pCard.mSuit;
-  return pOut;
+    pOut << pCard.mRank << " of " << pCard.mSuit;
+    return pOut;
 }
 
 bool operator==(const Card &left, const Card &right) noexcept {
-  return left.mRank == right.mRank && left.mSuit == right.mSuit;
+    return left.mRank == right.mRank && left.mSuit == right.mSuit;
 }
 
 bool Card::isValid() const {
-  return mSuit != Suit::eUnknown && mRank != Rank::eUnknown;
+    return mSuit != Suit::eUnknown && mRank != Rank::eUnknown;
 }

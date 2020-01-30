@@ -10,7 +10,6 @@ class Card;
 
 class Deck {
 public:
-
     Deck();
 
     virtual ~Deck() = default;
@@ -22,9 +21,7 @@ public:
     bool hasNext() const;
 
 private:
-
     std::vector<Card> mCards;
 
     std::vector<Card>::const_reverse_iterator mCurrent;
-
 };
