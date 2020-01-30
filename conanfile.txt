@@ -1,9 +1,5 @@
 [requires]
-boost/1.72.0
-
-[options]
-boost:shared=False
-boost:without_python=True
+gtest/1.10.0@_/_
 
 [generators]
 cmake_paths
