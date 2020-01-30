@@ -1,5 +1,5 @@
 #
-# Copyright 2019, Samuel Brand
+# Copyright 2016, Samuel Brand
 #
 
 cmake_minimum_required( VERSION 3.15 FATAL_ERROR )
@@ -12,8 +12,11 @@ else()
     message( WARNING "The file conan_paths.cmake doesn't exist, you have to run conan install first" )
 endif()
 
-set( GTEST_MSVC_SEARCH "MD" )
-find_package( GTest REQUIRED )
+set( Boost_NO_SYSTEM_PATHS ON )
+set( Boost_USE_STATIC_LIBS ON )
+set( Boost_USE_MULTITHREADED ON )
+set( Boost_USE_STATIC_RUNTIME $<$<COMPILER_ID:MSVC>:ON> )
+find_package( Boost REQUIRED COMPONENTS unit_test_framework )
 
 add_subdirectory( src )
 
