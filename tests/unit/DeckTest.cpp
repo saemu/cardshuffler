@@ -1,36 +1,40 @@
 /*
- * Copyright 2019, Samuel Brand
+ * Copyright 2016, Samuel Brand
  */
 
 #include "lib/Card.hpp"
 #include "lib/Deck.hpp"
 
-#include <gtest/gtest.h>
+#include <boost/test/unit_test.hpp>
 
-TEST(DeckTest, ConstructorTest) {
-    EXPECT_NO_THROW(Deck deck);
+BOOST_AUTO_TEST_SUITE(DeckTest)
+
+BOOST_AUTO_TEST_CASE(ConstructorTest) {
+    BOOST_CHECK_NO_THROW(Deck deck);
 }
 
-TEST(DeckTest, hasNextText) {
+BOOST_AUTO_TEST_CASE(hasNextText) {
     Deck deck;
-    EXPECT_TRUE(deck.hasNext());
+    BOOST_TEST(deck.hasNext());
 }
 
-TEST(DeckTest, shuffleTest) {
+BOOST_AUTO_TEST_CASE(shuffleTest) {
     Deck deck;
-    EXPECT_NO_THROW(deck.shuffle());
+    BOOST_CHECK_NO_THROW(deck.shuffle());
 }
 
-TEST(DeckTest, drawCardTest) {
+BOOST_AUTO_TEST_CASE(drawCardTest) {
     Deck deck;
-    EXPECT_NO_THROW(deck.drawNextCard());
+    BOOST_CHECK_NO_THROW(deck.drawNextCard());
     auto card = deck.drawNextCard();
-    EXPECT_TRUE(card.isValid());
+    BOOST_TEST(card.isValid());
 }
 
-TEST(DeckTest, drawAllTest) {
+BOOST_AUTO_TEST_CASE(drawAllTest) {
     Deck deck;
-    while(deck.hasNext()) {
-        EXPECT_NO_THROW(deck.drawNextCard());
+    while (deck.hasNext()) {
+        BOOST_CHECK_NO_THROW(deck.drawNextCard());
     }
 }
+
+BOOST_AUTO_TEST_SUITE_END()
