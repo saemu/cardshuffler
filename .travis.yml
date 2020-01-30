@@ -1,9 +1,5 @@
-dist: bionic
+dist: trusty
 language: cpp
-
-env:
-  global:
-    - PLATFORM=x86_64
 
 compiler:
   - gcc
