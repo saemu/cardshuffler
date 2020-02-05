@@ -1,15 +1,13 @@
 #
-# Copyright 2016, Samuel Brand
+# Copyright 2019, Samuel Brand
 #
 
 set( SRCS
      CardTest.cpp
-     DeckTest.cpp
-     main.cpp )
+     DeckTest.cpp )
 
 add_executable( testrunner )
 target_sources( testrunner PRIVATE ${SRCS} )
-target_link_libraries( testrunner PRIVATE cards Boost::unit_test_framework Boost::disable_autolinking )
+target_link_libraries( testrunner PRIVATE cards GTest::GTest GTest::Main )
 
-add_test( NAME unittests
-          COMMAND testrunner --logger=HRF,all,stdout )
+gtest_discover_tests( testrunner )
