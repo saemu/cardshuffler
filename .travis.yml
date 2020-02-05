@@ -13,11 +13,11 @@ addons:
 install:
   # use latest CMake
   - |
-      DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
-      CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-Linux-x86_64.tar.gz"
-      mkdir -p ${DEPS_DIR}/cmake
-      travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
-      export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+    DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
+    CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-Linux-x86_64.tar.gz"
+    mkdir -p ${DEPS_DIR}/cmake
+    travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
+    export PATH=${DEPS_DIR}/cmake/bin:${PATH}
   # Install conan
   - pip install --user --upgrade conan
   # Automatic detection of your arch, compiler, etc.

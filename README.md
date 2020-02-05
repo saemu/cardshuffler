@@ -1,10 +1,10 @@
 # cardshuffler
-Simple example using CMake, Conan and Boost Test.
+Simple example using CMake, Conan and Goole Test Framework.
 
 ## Setup Instructions
 
 ```shell
-pip install conan
+pip install --user --upgrade conan
 ```
 
 ## Build Instructions
