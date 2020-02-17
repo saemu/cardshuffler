@@ -27,3 +27,5 @@ target_compile_options( cards
                         $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wall;-Wextra;-fstack-protector-all>
                         $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:$<$<CONFIG:Debug>:-g;-O0;-fno-inline>>
                         )
+
+target_link_libraries( cards PUBLIC fmt::fmt )

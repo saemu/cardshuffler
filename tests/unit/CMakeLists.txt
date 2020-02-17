@@ -8,6 +8,7 @@ set( SRCS
 
 add_executable( testrunner )
 target_sources( testrunner PRIVATE ${SRCS} )
-target_link_libraries( testrunner PRIVATE cards GTest::GTest GTest::Main )
+target_link_libraries( testrunner PRIVATE cards GTest::GTest )
 
+include(GoogleTest)
 gtest_discover_tests( testrunner )
