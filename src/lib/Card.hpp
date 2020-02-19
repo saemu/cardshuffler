@@ -29,6 +29,8 @@ public:
 
     Card& operator=(Card&& pObject) noexcept = default;
 
+    explicit operator std::string() const;
+
     bool isValid() const;
 
 private:

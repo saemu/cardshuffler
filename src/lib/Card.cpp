@@ -4,6 +4,8 @@
 
 #include "Card.hpp"
 
+#include <fmt/format.h>
+
 #include <map>
 #include <string>
 
@@ -23,35 +25,35 @@ static const std::map<Card::Suit, std::string> SuitStrings{{Card::Suit::eClubs, 
                                                            {Card::Suit::eDiamonds, "Diamonds"},
                                                            {Card::Suit::eHearts,   "Hearts"},
                                                            {Card::Suit::eSpades,   "Spades"}};
-
 // clang-format on
-
-std::ostream &operator<<(std::ostream &pOut, const Card::Rank &pRank) {
-    auto rankString = RankStrings.find(pRank);
-    if (rankString == std::end(RankStrings)) {
-        throw std::invalid_argument("Given Rank is invalid");
-    }
-
-    pOut << rankString->second;
-
-    return pOut;
-}
-
-std::ostream &operator<<(std::ostream &pOut, const Card::Suit pSuit) {
-    auto suitString = SuitStrings.find(pSuit);
-    if (suitString == std::end(SuitStrings)) {
-        throw std::invalid_argument("Given Suit is invalid");
-    }
-
-    pOut << suitString->second;
-
-    return pOut;
-}
-
 }  // namespace
 
+template<>
+struct fmt::formatter<Card::Suit> : fmt::formatter<std::string> {
+    template<typename FormatContext>
+    auto format(Card::Suit suit, FormatContext& context) {
+        const auto suitString = SuitStrings.find(suit);
+        if (suitString == std::cend(SuitStrings)) {
+            throw std::invalid_argument("Given Suit is invalid");
+        }
+        return fmt::formatter<std::string>::format(suitString->second, context);
+    }
+};
+
+template<>
+struct fmt::formatter<Card::Rank> : fmt::formatter<std::string> {
+    template<typename FormatContext>
+    auto format(Card::Rank rank, FormatContext& context) {
+        const auto rankString = RankStrings.find(rank);
+        if (rankString == std::cend(RankStrings)) {
+            throw std::invalid_argument("Given Rank is invalid");
+        }
+        return fmt::formatter<std::string>::format(rankString->second, context);
+    }
+};
+
 std::ostream &operator<<(std::ostream &pOut, const Card &pCard) {
-    pOut << pCard.mRank << " of " << pCard.mSuit;
+    pOut << static_cast<std::string>(pCard);
     return pOut;
 }
 
@@ -61,4 +63,7 @@ bool operator==(const Card &left, const Card &right) noexcept {
 
 bool Card::isValid() const {
     return mSuit != Suit::eUnknown && mRank != Rank::eUnknown;
+}
+Card::operator std::string() const {
+    return fmt::format(FMT_STRING("{} of {}"), mRank, mSuit);
 }
