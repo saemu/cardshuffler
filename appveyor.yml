@@ -15,8 +15,8 @@ environment:
 
 install:
   - set PATH=%PYTHON%/Scripts/;%PATH%
-  - pip.exe install --upgrade 'conan==1.21.0'
-  - conan
+  - pip.exe install --upgrade conan==1.21.0
+  - conan user
 
 build_script:
   - call "%env_script%"

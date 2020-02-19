@@ -10,6 +10,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-8
+      - binutils-2.26
   sonarcloud:
     organization: "saemu"
     token:
@@ -28,9 +29,10 @@ install:
   # use GCC 8 by overriding the alternative
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
   # Install conan
-  - pip install --user --upgrade 'conan==1.21.0'
+  - pip install --user --upgrade conan==1.21.0
   # Automatic detection of your arch, compiler, etc.
-  - conan && conan config set compiler.libcxx=libstdc++11
+  - conan user
+  - conan config set compiler.libcxx=libstdc++11
 
 script:
   - mkdir build && cd build
