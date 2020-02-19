@@ -5,6 +5,11 @@ compiler:
   - gcc
 
 addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-8
   sonarcloud:
     organization: "saemu"
     token:
@@ -18,12 +23,14 @@ install:
     mkdir -p ${DEPS_DIR}/cmake
     travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
     export PATH=${DEPS_DIR}/cmake/bin:${PATH}
-  # Install conan
-  - pip install --user --upgrade conan
-  # Automatic detection of your arch, compiler, etc.
-  - conan user && conan config set compiler.libcxx=libstdc++11
   # install ninja build
   - sudo apt-get -y install ninja-build
+  # use GCC 8 by overriding the alternative
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+  # Install conan
+  - pip install --user --upgrade 'conan==1.21.0'
+  # Automatic detection of your arch, compiler, etc.
+  - conan && conan config set compiler.libcxx=libstdc++11
 
 script:
   - mkdir build && cd build
