@@ -1,16 +1,10 @@
-dist: trusty
+dist: bionic
 language: cpp
 
 compiler:
   - gcc
 
 addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-8
-      - binutils-2.26
   sonarcloud:
     organization: "saemu"
     token:
