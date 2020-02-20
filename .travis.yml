@@ -20,8 +20,6 @@ install:
     export PATH=${DEPS_DIR}/cmake/bin:${PATH}
   # install ninja build
   - sudo apt-get -y install ninja-build
-  # use GCC 8 by overriding the alternative
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
   # Install conan
   - pip install --user --upgrade conan==1.21.0
   # Automatic detection of your arch, compiler, etc.
