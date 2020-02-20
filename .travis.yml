@@ -11,6 +11,7 @@ addons:
     packages:
       - g++-8
       - binutils-2.26
+      - ninja-build
   sonarcloud:
     organization: "saemu"
     token:
@@ -24,17 +25,12 @@ install:
     mkdir -p ${DEPS_DIR}/cmake
     travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
     export PATH=${DEPS_DIR}/cmake/bin:${PATH}
-  # install ninja build
-  - sudo apt-get -y install ninja-build
-  # use GCC 8 by overriding the alternative
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 10 \
-  --slave /usr/bin/g++ g++ /usr/bin/g++-8 10 \
-  --slave /usr/bin/ld ld /usr/bin/ld-2.26 10
-# Install conan
-- pip install --user --upgrade conan==1.21.0
-# Automatic detection of your arch, compiler, etc.
-- conan user
-- conan config set compiler.libcxx=libstdc++11
+    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 10
+    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 10
+    sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld-2.26 10
+    pip install --user --upgrade conan==1.21.0
+    conan user
+    conan config set compiler.libcxx=libstdc++11
 
 script:
   - mkdir build && cd build
