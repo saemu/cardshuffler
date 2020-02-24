@@ -14,7 +14,7 @@ jobs:
             conan profile update settings.compiler.libcxx=libstdc++11 default"
       - run:
           name: "Build Environment"
-          command: "gcc --version
+          command: "gcc --version;
             g++ --version;
             cmake --version;
             conan --version;"
