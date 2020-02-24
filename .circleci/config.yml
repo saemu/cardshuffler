@@ -1,29 +1,32 @@
 version: 2
 jobs:
-  docker:
-    - image: conanio/gcc8
-  steps:
-    - checkout
-    - run:
-        name: Build Conan package
-        command: |
-          sudo pip install --upgrade conan
-          conan user
-    - run:
-        name: Build and Test
-        command: |
-          pwd
-          gcc --version
-          g++ --version
-          cmake --version
-          conan --version
+  build:
+    working_directory: ~/cardshuffler
+    docker:
+      - image: conanio/gcc8
+    steps:
+      - checkout
+      - run:
+          name: Install build dependencies
+          command: |
+            pip install --user --upgrade conan
+            conan user
+      - run:
+          name: Build Enviroment
+          command: |
+            pwd
+            gcc --version
+            g++ --version
+            cmake --version
+            conan --version
+      - run:
+          name: Build
+          command: |
           mkdir build
           cd build && conan install .. --build=missing
           cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build build --target all -- -j4
+      - run:
+          name: test
+          command: |
           cmake --build build --target test
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - gcc
