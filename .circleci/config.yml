@@ -1,5 +1,5 @@
 version: 2
-gcc:
+jobs:
   docker:
     - image: conanio/gcc8
   steps:
