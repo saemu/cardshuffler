@@ -19,12 +19,17 @@ jobs:
             cmake --version;
             conan --version;"
       - run:
-          name: "Build"
+          name: "Install Conan Packages"
           command: "mkdir build;
           cd build;
-          conan install .. --build=missing;
-          cmake .. -DCMAKE_BUILD_TYPE=Debug;
-          cmake --build . --target all -- -j4"
+          conan install .. --build=missing"
+      - run:
+          name: "CMake"
+          command: "cd build;
+          cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -G Ninja .."
+      - run:
+          name: "Build"
+          command: "cmake --build build/ --target all"
       - run:
           name: "Test"
           command: "cmake --build build --target test"
