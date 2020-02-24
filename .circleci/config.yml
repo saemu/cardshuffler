@@ -7,26 +7,26 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install build dependencies
-          command: |
+          name: "Install build dependencies"
+          command: "|
             pip install --user --upgrade conan
-            conan user
+            conan user"
       - run:
-          name: Build Enviroment
-          command: |
+          name: "Build Enviroment"
+          command: "|
             pwd
             gcc --version
             g++ --version
             cmake --version
-            conan --version
+            conan --version"
       - run:
-          name: Build
-          command: |
+          name: "Build"
+          command: "|
           mkdir build
           cd build && conan install .. --build=missing
           cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug
-          cmake --build build --target all -- -j4
+          cmake --build build --target all -- -j4"
       - run:
-          name: test
-          command: |
-          cmake --build build --target test
+          name: "Test"
+          command: "|
+          cmake --build build --target test"
