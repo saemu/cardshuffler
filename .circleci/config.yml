@@ -8,23 +8,41 @@ jobs:
       - checkout
       - run:
           name: "Install build dependencies"
-          command: "pip install --user --upgrade conan;
-            conan user;
-            conan profile new --detect --force default;
-            conan profile update settings.compiler.libcxx=libstdc++11 default"
+          command: |
+            sudo apt-get update -q
+            sudo apt-get install -y -q unzip
+            pip -q install --user --upgrade conan
+            wget -nv https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+            unzip -qq build-wrapper-linux-x86.zip
+            sudo mv build-wrapper-linux-x86/* /usr/local/bin
+            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873-linux.zip
+            unzip -qq sonar-scanner-cli-4.2.0.1873-linux.zip -d ../
       - run:
-          name: "Build Environment"
-          command: "gcc --version
-            g++ --version;
-            cmake --version;
-            conan --version;"
+          name: "Setup Conan"
+          command: |
+            conan user
+            conan profile new --detect --force default
+            conan profile update settings.compiler.libcxx=libstdc++11 default
+      - run:
+          name: "Install Conan Packages"
+          command: |
+            mkdir -p build/sonar
+            cd build
+            conan install .. --build=missing
+      - run:
+          name: "CMake"
+          command: |
+            cd build
+            cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -G Ninja ..
       - run:
           name: "Build"
-          command: "mkdir build;
-          cd build;
-          conan install .. --build=missing;
-          cmake .. -DCMAKE_BUILD_TYPE=Debug;
-          cmake --build . --target all -- -j4"
+          command: "VERBOSE=1 build-wrapper-linux-x86-64 --out-dir sonar cmake --build build/ --target all"
       - run:
           name: "Test"
           command: "cmake --build build --target test"
+      - run:
+          name: "Sonar Scan"
+          command: "~/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner"
+      - store_test_results:
+          path: build/tests/results
+
