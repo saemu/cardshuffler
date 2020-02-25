@@ -8,8 +8,10 @@ jobs:
       - checkout
       - run:
           name: "Install build dependencies"
-          command: "pip -q install --user --upgrade conan;
-            conan user;
+          command: "pip -q install --user --upgrade conan"
+      - run:
+          name: "Setup Conan"
+          command: "conan user;
             conan profile new --detect --force default;
             conan profile update settings.compiler.libcxx=libstdc++11 default"
       - run:
