@@ -8,7 +8,7 @@ set( SRCS
 
 add_executable( testrunner )
 target_sources( testrunner PRIVATE ${SRCS} )
-target_link_libraries( testrunner PRIVATE cards GTest::GTest GTest::Main )
+target_link_libraries( testrunner PRIVATE cards GTest::GTest )
 
 add_test( NAME cardshuffler_test
           COMMAND testrunner --gtest_output=xml:../results/unit/ )
