@@ -65,3 +65,9 @@ TEST(CardTest, OutStreamOperatorTest) {
     stream << card;
     EXPECT_EQ("King of Spades", stream.str());
 }
+
+TEST(CardTest, OutStreamOperatorInvalidCard) {
+    std::ostringstream stream;
+    Card card;
+    EXPECT_THROW(stream << card, std::invalid_argument);
+}

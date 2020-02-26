@@ -33,13 +33,16 @@ jobs:
           name: "CMake"
           command: |
             cd build
-            cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -G Ninja ..
+            cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_COVERAGE=ON -G Ninja ..
       - run:
           name: "Build"
           command: "VERBOSE=1 build-wrapper-linux-x86-64 --out-dir sonar cmake --build build/ --target all"
       - run:
           name: "Test"
           command: "cmake --build build --target test"
+      - run:
+          name: "Code Coverage"
+          command: "bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-8"
       - run:
           name: "Sonar Scan"
           command: "~/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner"

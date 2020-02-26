@@ -18,12 +18,5 @@ target_include_directories( cards
                             PUBLIC ${CMAKE_SOURCE_DIR}/src
                             )
 
-target_compile_features( cards
-                         PUBLIC cxx_std_14 )
+target_link_libraries( cards PUBLIC compiler_settings )
 
-target_compile_options( cards
-                        PUBLIC
-                        $<$<CXX_COMPILER_ID:MSVC>:/W4;/WX>
-                        $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wall;-Wextra;-fstack-protector-all>
-                        $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:$<$<CONFIG:Debug>:-g;-O0;-fno-inline>>
-                        )
