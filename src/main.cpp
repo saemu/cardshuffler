@@ -42,8 +42,8 @@ int main(int, char**) {
             } while (deck.hasNext());
             running = readAnswer();
         } while (running);
-    } catch (const std::logic_error& ex) {
-        spdlog::error("Logical error: {}", ex.what());
+    } catch (const std::invalid_argument& ex) {
+        spdlog::error("invalid argument: {}", ex.what());
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
