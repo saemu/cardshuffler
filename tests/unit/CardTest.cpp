@@ -68,6 +68,20 @@ TEST(CardTest, OutStreamOperatorTest) {
 
 TEST(CardTest, OutStreamOperatorInvalidCard) {
     std::ostringstream stream;
-    Card card;
-    EXPECT_THROW(stream << card, std::invalid_argument);
+    {
+        Card card;
+        EXPECT_THROW(stream << card, std::invalid_argument);
+    }
+    {
+        Card card(Card::Suit::eUnknown, Card::Rank::eUnknown);
+        EXPECT_THROW(stream << card, std::invalid_argument);
+    }
+    {
+        Card card(Card::Suit::eHearts, Card::Rank::eUnknown);
+        EXPECT_THROW(stream << card, std::invalid_argument);
+    }
+    {
+        Card card(Card::Suit::eUnknown, Card::Rank::eKing);
+        EXPECT_THROW(stream << card, std::invalid_argument);
+    }
 }
