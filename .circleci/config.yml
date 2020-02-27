@@ -42,7 +42,9 @@ jobs:
           command: "cmake --build build --target test"
       - run:
           name: "Code Coverage"
-          command: "curl -s https://codecov.io/bash | sed 's/-execdir $gcov_exe/-exec $gcov_exe/' | bash -s -- -x /usr/bin/gcov-8"
+          command: |
+            cd build
+            curl -s https://codecov.io/bash | sed 's/-execdir $gcov_exe/-exec $gcov_exe/' | bash -s -- -x /usr/bin/gcov-8
       - run:
           name: "Sonar Scan"
           command: "~/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner"
