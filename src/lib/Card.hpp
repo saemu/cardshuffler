@@ -29,6 +29,8 @@ public:
 
     Card& operator=(Card&& pObject) noexcept = default;
 
+    explicit operator std::string() const;
+
 private:
     Suit mSuit = Suit::eHearts;
     Rank mRank = Rank::eQueen;
