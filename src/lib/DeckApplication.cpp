@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <map>
+#include <string>
 
 namespace {
 bool readAnswer(std::istream& input, std::ostream& output) {
