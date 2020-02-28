@@ -2,48 +2,15 @@
  * Copyright 2016, Samuel Brand
  */
 
-#include "lib/Card.hpp"
-#include "lib/Deck.hpp"
+#include "lib/DeckApplication.hpp"
 
-#include <map>
-#include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
-namespace {
-bool readAnswer() {
-    // clang-format off
-    static const std::map<std::string, bool> validInputs{{"y",   true,},
-                                                         {"yes", true,},
-                                                         {"n",   false},
-                                                         {"no",  false},};
-    // clang-format on
-    std::string quit;
-    spdlog::info("new shuffle [y/n]: ");
-    std::cin >> quit;
-    auto answer = validInputs.find(quit);
-    if (answer == std::end(validInputs)) {
-        throw std::invalid_argument("your answer is wrong, exiting");
-    }
-    return answer->second;
-}
-
-}  // namespace
-
-int main(int, char**) {
+int main(int /*argc*/, char*[] /*argv*/) {
     try {
-        spdlog::set_pattern("%v");
-        Deck deck;
-        bool running{true};
-        do {
-            deck.shuffle();
-            do {
-                const Card lCard = deck.drawNextCard();
-                spdlog::info("Card {}", lCard);
-            } while (deck.hasNext());
-            running = readAnswer();
-        } while (running);
+        DeckApplication::run(std::cin, std::cout);
     } catch (const std::invalid_argument& ex) {
-        spdlog::error("invalid argument: {}", ex.what());
+        spdlog::error("invalid_argument exception: {}", ex.what());
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;

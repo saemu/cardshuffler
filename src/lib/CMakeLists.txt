@@ -4,11 +4,13 @@
 
 set( HDRS
      Card.hpp
-     Deck.hpp )
+     Deck.hpp
+     DeckApplication.hpp )
 
 set( SRCS
      Card.cpp
-     Deck.cpp )
+     Deck.cpp
+     DeckApplication.cpp )
 
 add_library( cards STATIC )
 target_sources( cards
@@ -18,5 +20,5 @@ target_include_directories( cards
                             PUBLIC ${CMAKE_SOURCE_DIR}/src
                             )
 
-target_link_libraries( cards PUBLIC compiler_settings )
+target_link_libraries( cards PUBLIC compiler_settings spdlog::spdlog )
 
