@@ -8,4 +8,4 @@ set( SRCS
 add_subdirectory( lib )
 
 add_executable( cardshuffler ${SRCS} )
-target_link_libraries( cardshuffler PRIVATE cards spdlog::spdlog )
+target_link_libraries( cardshuffler PRIVATE cards )

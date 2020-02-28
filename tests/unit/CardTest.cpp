@@ -6,28 +6,12 @@
 
 #include <gtest/gtest.h>
 
-TEST(CardTest, SimpleConstructorTest) {
-    Card card;
-    EXPECT_FALSE(card.isValid());
-}
-
 TEST(CardTest, ConstructorNoThrowTest) {
     EXPECT_NO_THROW(Card(Card::Suit::eSpades, Card::Rank::eAce));
 }
 
 TEST(CardTest, ConstructorValidTest) {
-    Card card(Card::Suit::eClubs, Card::Rank::eKing);
-    EXPECT_TRUE(card.isValid());
-}
-
-TEST(CardTest, ConstructorInvalidSuitTest) {
-    Card card(Card::Suit::eUnknown, Card::Rank::eQueen);
-    EXPECT_FALSE(card.isValid());
-}
-
-TEST(CardTest, ConstructorInvalidRankTest) {
-    Card card(Card::Suit::eClubs, Card::Rank::eUnknown);
-    EXPECT_FALSE(card.isValid());
+    EXPECT_NO_THROW(Card card(Card::Suit::eClubs, Card::Rank::eKing));
 }
 
 TEST(CardTest, CopyConstructorTest) {
