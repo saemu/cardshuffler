@@ -23,7 +23,7 @@ std::string readInput(std::istream& input, spdlog::logger& output) {
 }
 
 bool validateInput(const std::string& input, const std::map<std::string, bool>& validInputs) {
-    auto const answer = validInputs.find(input);
+    const auto answer = validInputs.find(input);
     if (answer == std::cend(validInputs)) {
         throw std::invalid_argument("your answer is wrong, exiting");
     }
@@ -37,7 +37,7 @@ bool readAnswer(std::istream& input, spdlog::logger& output) {
                                                          {"n",   false},
                                                          {"no",  false},};
     // clang-format on
-    std::string answer = readInput(input, output);
+    const auto answer = readInput(input, output);
     return validateInput(answer, validInputs);
 }
 
