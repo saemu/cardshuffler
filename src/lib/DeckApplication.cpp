@@ -11,6 +11,23 @@
 #include <string>
 
 namespace {
+std::string readInput(std::istream& input, std::ostream& output) {
+    std::string quit;
+    output << "new shuffle [y/n]: ";
+    if (std::getline(input, quit)) {
+        quit.erase(std::remove_if(quit.begin(), quit.end(), ::isspace), quit.end());
+    }
+    return quit;
+}
+
+bool validateInput(const std::string& input, const std::map<std::string, bool>& validInputs) {
+    auto const answer = validInputs.find(input);
+    if (answer == std::cend(validInputs)) {
+        throw std::invalid_argument("your answer is wrong, exiting");
+    }
+    return answer->second;
+}
+
 bool readAnswer(std::istream& input, std::ostream& output) {
     // clang-format off
     static const std::map<std::string, bool> validInputs{{"y",   true,},
@@ -18,19 +35,8 @@ bool readAnswer(std::istream& input, std::ostream& output) {
                                                          {"n",   false},
                                                          {"no",  false},};
     // clang-format on
-
-    std::string quit;
-    auto answer = std::end(validInputs);
-    output << "new shuffle [y/n]: ";
-    if (std::getline(input, quit)) {
-        quit.erase(std::remove_if(quit.begin(), quit.end(), ::isspace), quit.end());
-    }
-
-    answer = validInputs.find(quit);
-    if (answer == std::end(validInputs)) {
-        throw std::invalid_argument("your answer is wrong, exiting");
-    }
-    return answer->second;
+    std::string answer = readInput(input, output);
+    return validateInput(answer, validInputs);
 }
 
 }  // namespace
