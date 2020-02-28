@@ -20,5 +20,4 @@ target_include_directories( cards
                             PUBLIC ${CMAKE_SOURCE_DIR}/src
                             )
 
-target_link_libraries( cards PUBLIC compiler_settings spdlog::spdlog )
-
+target_link_libraries( cards PUBLIC compiler_settings fmt::fmt spdlog::spdlog )

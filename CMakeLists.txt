@@ -14,6 +14,8 @@ endif()
 
 include( cmake/compiler_settings.cmake )
 
+find_package( fmt REQUIRED )
+
 find_package( spdlog REQUIRED )
 
 set( GTEST_MSVC_SEARCH "MD" )
