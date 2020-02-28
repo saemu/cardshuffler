@@ -24,8 +24,7 @@ TEST(DeckTest, shuffleTest) {
 TEST(DeckTest, drawCardTest) {
     Deck deck;
     EXPECT_NO_THROW(deck.drawNextCard());
-    auto card = deck.drawNextCard();
-    EXPECT_TRUE(card.isValid());
+    EXPECT_NO_THROW(auto card = deck.drawNextCard());
 }
 
 TEST(DeckTest, drawAllTest) {
