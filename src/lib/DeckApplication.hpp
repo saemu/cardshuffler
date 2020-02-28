@@ -6,7 +6,11 @@
 
 #include "lib/Deck.hpp"
 
+namespace spdlog {
+class logger;
+}
+
 class DeckApplication {
 public:
-    static void run(std::istream& input, std::ostream& output);
+    static void run(std::istream& input, spdlog::logger& output);
 };

@@ -8,12 +8,14 @@
 
 #include <algorithm>
 #include <map>
+#include <spdlog/fmt/ostr.h>
+#include <spdlog/spdlog.h>
 #include <string>
 
 namespace {
-std::string readInput(std::istream& input, std::ostream& output) {
+std::string readInput(std::istream& input, spdlog::logger& output) {
     std::string quit;
-    output << "new shuffle [y/n]: ";
+    output.info("new shuffle [y/n]: ");
     if (std::getline(input, quit)) {
         quit.erase(std::remove_if(quit.begin(), quit.end(), ::isspace), quit.end());
     }
@@ -28,7 +30,7 @@ bool validateInput(const std::string& input, const std::map<std::string, bool>& 
     return answer->second;
 }
 
-bool readAnswer(std::istream& input, std::ostream& output) {
+bool readAnswer(std::istream& input, spdlog::logger& output) {
     // clang-format off
     static const std::map<std::string, bool> validInputs{{"y",   true,},
                                                          {"yes", true,},
@@ -41,14 +43,14 @@ bool readAnswer(std::istream& input, std::ostream& output) {
 
 }  // namespace
 
-void DeckApplication::run(std::istream& input, std::ostream& output) {
+void DeckApplication::run(std::istream& input, spdlog::logger& output) {
     bool running{true};
     Deck deck;
     do {
         deck.shuffle();
         do {
             const Card card = deck.drawNextCard();
-            output << "Card" << card << '\n';
+            output.info("Card {}", card);
         } while (deck.hasNext());
         running = readAnswer(input, output);
     } while (running);
