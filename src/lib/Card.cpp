@@ -28,23 +28,13 @@ const std::map<Card::Suit, std::string> SuitStrings{{Card::Suit::eClubs,    "Clu
 
 std::ostream &operator<<(std::ostream &pOut, const Card::Rank &pRank) {
     auto rankString = RankStrings.find(pRank);
-    if (rankString == std::end(RankStrings)) {
-        throw std::invalid_argument("Given Rank is invalid");
-    }
-
     pOut << rankString->second;
-
     return pOut;
 }
 
 std::ostream &operator<<(std::ostream &pOut, const Card::Suit pSuit) {
     auto suitString = SuitStrings.find(pSuit);
-    if (suitString == std::end(SuitStrings)) {
-        throw std::invalid_argument("Given Suit is invalid");
-    }
-
     pOut << suitString->second;
-
     return pOut;
 }
 
@@ -57,8 +47,4 @@ std::ostream &operator<<(std::ostream &pOut, const Card &pCard) {
 
 bool operator==(const Card &left, const Card &right) noexcept {
     return left.mRank == right.mRank && left.mSuit == right.mSuit;
-}
-
-bool Card::isValid() const {
-    return mSuit != Suit::eUnknown && mRank != Rank::eUnknown;
 }

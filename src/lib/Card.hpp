@@ -11,11 +11,11 @@ public:
     friend std::ostream& operator<<(std::ostream& pOut, const Card& pCard);
     friend bool operator==(const Card& left, const Card& right) noexcept;
 
-    enum class Suit { eUnknown, eSpades, eHearts, eDiamonds, eClubs };
+    enum class Suit { eSpades, eHearts, eDiamonds, eClubs };
 
-    enum class Rank { eUnknown, eSix, eSeven, eEight, eNine, eTen, eJack, eQueen, eKing, eAce };
+    enum class Rank { eSix, eSeven, eEight, eNine, eTen, eJack, eQueen, eKing, eAce };
 
-    Card() = default;
+    Card() = delete;
 
     Card(Suit pSuit, Rank pRank) : mSuit(pSuit), mRank(pRank) {}
 
@@ -29,9 +29,7 @@ public:
 
     Card& operator=(Card&& pObject) noexcept = default;
 
-    bool isValid() const;
-
 private:
-    Suit mSuit = Suit::eUnknown;
-    Rank mRank = Rank::eUnknown;
+    Suit mSuit = Suit::eHearts;
+    Rank mRank = Rank::eQueen;
 };
