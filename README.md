@@ -1,5 +1,5 @@
 # cardshuffler
-Simple example using CMake, Conan and Goole Test Framework.
+Simple example using CMake, Conan and Google Test Framework.
 
 ## Setup Instructions
 
