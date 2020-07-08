@@ -19,16 +19,6 @@ public:
 
     Card(Suit pSuit, Rank pRank) : mSuit(pSuit), mRank(pRank) {}
 
-    Card(const Card& pObject) = default;
-
-    Card(Card&& pObject) noexcept = default;
-
-    virtual ~Card() = default;
-
-    Card& operator=(const Card& pObject) = default;
-
-    Card& operator=(Card&& pObject) noexcept = default;
-
     explicit operator std::string() const;
 
 private:
