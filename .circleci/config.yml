@@ -15,8 +15,8 @@ jobs:
             wget -nv https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
             unzip -qq build-wrapper-linux-x86.zip
             sudo mv build-wrapper-linux-x86/* /usr/local/bin
-            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873-linux.zip
-            unzip -qq sonar-scanner-cli-4.2.0.1873-linux.zip -d ../
+            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
+            unzip -qq sonar-scanner-cli-4.4.0.2170-linux.zip -d ../
       - run:
           name: "Setup Conan"
           command: |
@@ -47,7 +47,8 @@ jobs:
             bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-8 -g '*/tests/*'
       - run:
           name: "Sonar Scan"
-          command: "~/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner"
+          context: SonarCloud
+          command: "~/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner"
       - store_test_results:
           path: build/tests/results
 
