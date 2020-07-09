@@ -3,5 +3,6 @@
 #
 
 add_subdirectory( unit )
+add_subdirectory( benchmark )
 
 file( MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/results/unit )

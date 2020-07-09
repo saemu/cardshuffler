@@ -21,6 +21,8 @@ find_package( spdlog REQUIRED )
 set( GTEST_MSVC_SEARCH "MD" )
 find_package( GTest REQUIRED )
 
+find_package( benchmark REQUIRED )
+
 add_subdirectory( src )
 
 enable_testing()
