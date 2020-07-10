@@ -1,9 +1,10 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
-    working_directory: ~/cardshuffler
     docker:
       - image: conanio/gcc8
+    working_directory: ~/cardshuffler
     steps:
       - checkout
       - run:
@@ -11,15 +12,13 @@ jobs:
           command: |
             sudo apt-get update -q
             sudo apt-get install -y -q unzip
-            pip -q install --user --upgrade conan
             wget -nv https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
             unzip -qq build-wrapper-linux-x86.zip
             sudo mv build-wrapper-linux-x86/* /usr/local/bin
-            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
-            unzip -qq sonar-scanner-cli-4.4.0.2170-linux.zip -d ../
       - run:
           name: "Setup Conan"
           command: |
+            pip -q install --user --upgrade conan
             conan user
             conan profile new --detect --force default
             conan profile update settings.compiler.libcxx=libstdc++11 default
@@ -47,8 +46,15 @@ jobs:
             bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-8 -g '*/tests/*'
       - run:
           name: "Sonar Scan"
-          context: SonarCloud
-          command: "~/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}"
+          command: |
+            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
+            unzip -qq sonar-scanner-cli-4.4.0.2170-linux.zip -d ../
+            ~/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}
       - store_test_results:
           path: build/tests/results
 
+workflows:
+  build_and_test:
+    jobs:
+      - build:
+          context: SonarCloud
