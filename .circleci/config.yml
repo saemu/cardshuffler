@@ -1,9 +1,5 @@
 version: 2.1
 
-orbs:
-  coverage-reporter: codacy/coverage-reporter@11.0.1
-  codecov: codecov/codecov@1.1.0
-
 jobs:
   build:
     docker:
@@ -47,9 +43,7 @@ jobs:
           name: "Code Coverage"
           command: |
             cd build
-            bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-8 -g '*/tests/*' -X fix
-      - coverage-reporter/send_report:
-          project-token: $CODACY_PROJECT_TOKEN
+            bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-8 -g '*/tests/*'
       - run:
           name: "Sonar Scan"
           command: |
