@@ -49,3 +49,17 @@ TEST(CardTest, OutStreamOperatorTest) {
     stream << card;
     EXPECT_EQ("King of Spades", stream.str());
 }
+
+TEST(CardTest, InvalidRank) {
+    std::ostringstream stream;
+    constexpr auto InvalidRank = 1024U;
+    Card card(Card::Suit::eSpades, static_cast<Card::Rank>(InvalidRank));
+    EXPECT_THROW(stream << card, std::invalid_argument);
+}
+
+TEST(CardTest, InvalidSuit) {
+    std::ostringstream stream;
+    constexpr auto InvalidSuit = 1024U;
+    Card card(static_cast<Card::Suit>(InvalidSuit), Card::Rank::eAce);
+    EXPECT_THROW(stream << card, std::invalid_argument);
+}
