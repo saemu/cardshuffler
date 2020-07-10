@@ -8,9 +8,20 @@
 #include <gtest/gtest.h>
 #include <spdlog/spdlog.h>
 
-auto logger = spdlog::create<spdlog::sinks::null_sink_st>("null_logger");
+struct DeckApplicationTest : testing::Test {
 
-TEST(DeckApplicationTest, YesNoTest) {
+    void SetUp() override {
+        logger = spdlog::create<spdlog::sinks::null_sink_st>("null_logger");
+    }
+
+    void TearDown() override  {
+        spdlog::drop_all();
+    }
+
+    std::shared_ptr<spdlog::logger> logger = nullptr;
+};
+
+TEST_F(DeckApplicationTest, YesNoTest) {
     std::string testValues = R"__(yes
 no
 )__";
@@ -18,7 +29,7 @@ no
     EXPECT_NO_THROW(DeckApplication::run(input, *logger));
 }
 
-TEST(DeckApplicationTest, ShortTermTest) {
+TEST_F(DeckApplicationTest, ShortTermTest) {
     std::string testValues = R"__(y
 n
 )__";
@@ -26,7 +37,7 @@ n
     EXPECT_NO_THROW(DeckApplication::run(input, *logger));
 }
 
-TEST(DeckApplicationTest, WhiteSpaceTest) {
+TEST_F(DeckApplicationTest, WhiteSpaceTest) {
     std::string testValues = R"__(y e s
  n o
 )__";
@@ -34,7 +45,7 @@ TEST(DeckApplicationTest, WhiteSpaceTest) {
     EXPECT_NO_THROW(DeckApplication::run(input, *logger));
 }
 
-TEST(DeckApplicationTest, InvalidValuesTest) {
+TEST_F(DeckApplicationTest, InvalidValuesTest) {
     std::string testValues = R"__(yes
 y
 exit
