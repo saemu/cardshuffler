@@ -48,7 +48,7 @@ jobs:
       - run:
           name: "Sonar Scan"
           context: SonarCloud
-          command: "~/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner"
+          command: "~/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}"
       - store_test_results:
           path: build/tests/results
 
