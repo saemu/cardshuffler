@@ -29,7 +29,7 @@ build_script:
 
       mkdir build && cd build
 
-      conan install .. --settings build_type=Release --settings compiler.runtime=%runtime% --build
+      conan install .. --settings build_type=%configuration% --settings compiler.runtime=%runtime% --build
 
       cmake ../ -G "Ninja" -DCMAKE_BUILD_TYPE=%configuration%
 
