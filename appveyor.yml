@@ -14,17 +14,26 @@ environment:
       runtime: "MD"
 
 install:
-  - set PATH=%PYTHON%/Scripts/;%PATH%
-  - pip.exe install --upgrade conan==1.21.0
-  - conan user
+  - cmd: >-
+      set PATH=%PYTHON%/Scripts/;%PATH%
+
+      pip.exe install --upgrade conan==1.27.1
+
+      conan user
 
 build_script:
-  - call "%env_script%"
-  - set PATH=%PYTHON%/Scripts/;%PATH%
-  - mkdir build && cd build
-  - conan install .. --settings build_type=Release --settings compiler.runtime=%runtime% --build
-  - cmake ../ -G "Ninja" -DCMAKE_BUILD_TYPE=%configuration%
-  - cmake --build . --config %configuration%
+  - cmd: >-
+      call "%env_script%"
+
+      set PATH=%PYTHON%/Scripts/;%PATH%
+
+      mkdir build && cd build
+
+      conan install .. --settings build_type=Release --settings compiler.runtime=%runtime% --build
+
+      cmake ../ -G "Ninja" -DCMAKE_BUILD_TYPE=%configuration%
+
+      cmake --build . --config %configuration%
 
 test_script:
   - ctest -C %configuration%
