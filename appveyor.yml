@@ -37,3 +37,6 @@ build_script:
 
 test_script:
   - ctest -C %configuration%
+
+after_test:
+  -  ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests\results\*\*.xml))
