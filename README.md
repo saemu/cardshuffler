@@ -12,7 +12,6 @@ pip install --user --upgrade conan
 ```shell
 mkdir build
 cd build
-conan install ..
 cmake ..
 make
 make test

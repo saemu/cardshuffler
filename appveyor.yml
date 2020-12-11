@@ -15,11 +15,17 @@ environment:
 
 install:
   - cmd: >-
+      call "%env_script%"
+
       set PATH=%PYTHON%/Scripts/;%PATH%
 
-      pip.exe install --upgrade conan==1.27.1
+      pip.exe install --upgrade conan
 
       conan user
+
+      conan profile new --detect --force default
+
+      conan profile update settings.compiler.runtime=%runtime% default
 
 build_script:
   - cmd: >-
@@ -28,8 +34,6 @@ build_script:
       set PATH=%PYTHON%/Scripts/;%PATH%
 
       mkdir build && cd build
-
-      conan install .. --settings build_type=%configuration% --settings compiler.runtime=%runtime% --build
 
       cmake ../ -G "Ninja" -DCMAKE_BUILD_TYPE=%configuration%
 
