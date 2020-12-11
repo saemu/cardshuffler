@@ -23,14 +23,9 @@ jobs:
             conan profile new --detect --force default
             conan profile update settings.compiler.libcxx=libstdc++11 default
       - run:
-          name: "Install Conan Packages"
-          command: |
-            mkdir -p build/sonar
-            cd build
-            conan install .. --build=missing
-      - run:
           name: "CMake"
           command: |
+            mkdir -p build/sonar
             cd build
             cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_COVERAGE=ON -G Ninja ..
       - run:
