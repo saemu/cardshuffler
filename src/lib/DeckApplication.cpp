@@ -12,7 +12,12 @@
 #include <spdlog/spdlog.h>
 #include <string>
 
+using namespace std::string_literals;
+
 namespace {
+
+using InputMap_t = std::map<std::string, bool, std::less<>>;
+
 std::string readInput(std::istream& input, spdlog::logger& output) {
     std::string quit;
     output.info("new shuffle [y/n]: ");
@@ -22,7 +27,7 @@ std::string readInput(std::istream& input, spdlog::logger& output) {
     return quit;
 }
 
-bool validateInput(const std::string& input, const std::map<std::string, bool>& validInputs) {
+bool validateInput(const std::string& input, const InputMap_t& validInputs) {
     const auto answer = validInputs.find(input);
     if (answer == std::cend(validInputs)) {
         throw std::invalid_argument("your answer is wrong, exiting");
@@ -32,10 +37,10 @@ bool validateInput(const std::string& input, const std::map<std::string, bool>& 
 
 bool readAnswer(std::istream& input, spdlog::logger& output) {
     // clang-format off
-    static const std::map<std::string, bool> validInputs{{"y",   true,},
-                                                         {"yes", true,},
-                                                         {"n",   false},
-                                                         {"no",  false},};
+    static const InputMap_t validInputs{{"y"s,   true,},
+                                        {"yes"s, true,},
+                                        {"n"s,   false},
+                                        {"no"s,  false},};
     // clang-format on
     const auto answer = readInput(input, output);
     return validateInput(answer, validInputs);
