@@ -12,7 +12,6 @@ pip install --user --upgrade conan
 ```shell
 mkdir build
 cd build
-cmake ..
-make
-make test
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build . --target all test
 ```
