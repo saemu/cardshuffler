@@ -13,7 +13,8 @@ option( ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" OFF )
 
 if( ENABLE_COVERAGE )
     target_compile_options( compiler_settings INTERFACE
-                            $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:--coverage> )
+                            $<$<CXX_COMPILER_ID:GNU>:--coverage>
+                            $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fprofile-instr-generate;-fcoverage-mapping> )
     target_link_libraries( compiler_settings INTERFACE
-                           $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:--coverage> )
+                           $<$<CXX_COMPILER_ID:GNU>:--coverage> )
 endif()
