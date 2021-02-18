@@ -1,55 +1,108 @@
 version: 2.1
 
+executors:
+  gcc10:
+    docker:
+      - image: conanio/gcc10
+  clang10:
+    docker:
+      - image: conanio/clang10
+
+commands:
+  install_ninja:
+    steps:
+      - run:
+          name: "install ninja"
+          command: |
+            sudo apt update
+            sudo apt -y install ninja-build
+  setup_conan:
+    steps:
+      - run:
+          name: "Setup Conan"
+          command: |
+            conan profile new --detect --force default
+            conan profile update settings.compiler.libcxx=libstdc++11 default
+  cmake:
+    parameters:
+      build_type:
+        type: string
+        default: "Release"
+      enable_coverage:
+        type: string
+        default: "Off"
+    steps:
+      - run:
+          name: "CMake"
+          command: |
+            mkdir build
+            cd build
+            cmake .. -DCMAKE_BUILD_TYPE=<< parameters.build_type >> -DENABLE_COVERAGE=<< parameters.enable_coverage >> -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -G Ninja
+
 jobs:
   build:
+    parameters:
+      os:
+        type: executor
+    executor: << parameters.os >>
+    working_directory: ~/cardshuffler
+    steps:
+      - install_ninja
+      - checkout
+      - setup_conan
+      - cmake
+      - run:
+          name: "Build"
+          command: "cmake --build build/ --target all"
+      - run:
+          name: "Test"
+          command: "cmake --build build/ --target test"
+      - store_test_results:
+          path: build/tests/results
+
+  sonar-scan:
     docker:
-      - image: conanio/gcc8
+      - image: conanio/gcc10
     working_directory: ~/cardshuffler
     steps:
       - checkout
+      - setup_conan
       - run:
-          name: "Install build dependencies"
+          name: "install sonar-build dependencies"
           command: |
             sudo apt-get update -q
             sudo apt-get install -y -q unzip
             wget -nv https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
             unzip -qq build-wrapper-linux-x86.zip
             sudo mv build-wrapper-linux-x86/* /usr/local/bin
+            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
+            unzip -qq sonar-scanner-cli-4.4.0.2170-linux.zip -d ../
+      - cmake:
+          build_type: "Debug"
+          enable_coverage: "On"
       - run:
-          name: "Setup Conan"
-          command: |
-            pip -q install --user --upgrade conan
-            conan user
-            conan profile new --detect --force default
-            conan profile update settings.compiler.libcxx=libstdc++11 default
-      - run:
-          name: "CMake"
+          name: "execute sonar-build"
           command: |
             mkdir -p build/sonar
-            cd build
-            cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_COVERAGE=ON -G Ninja ..
+            VERBOSE=1 build-wrapper-linux-x86-64 --out-dir sonar cmake --build build/ --target all
       - run:
-          name: "Build"
-          command: "VERBOSE=1 build-wrapper-linux-x86-64 --out-dir sonar cmake --build build/ --target all"
-      - run:
-          name: "Test"
-          command: "cmake --build build --target test"
+          name: "sonar-scan"
+          command: |
+            ~/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}
       - run:
           name: "Code Coverage"
           command: |
             cd build
-            bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-8 -g '*/tests/*'
-      - run:
-          name: "Sonar Scan"
-          command: |
-            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
-            unzip -qq sonar-scanner-cli-4.4.0.2170-linux.zip -d ../
-            ~/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}
-      - store_test_results:
-          path: build/tests/results
+            bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-10 -g '*/tests/*'
 
 workflows:
   build_and_test:
     jobs:
       - build:
-          context: SonarCloud
+          matrix:
+            parameters:
+              os: [ "gcc10", "clang10" ]
+  sonar-scan:
+      jobs:
+        - sonar-scan:
+            context: SonarCloud
