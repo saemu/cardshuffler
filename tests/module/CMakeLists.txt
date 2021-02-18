@@ -1,9 +1,9 @@
 
-add_test( NAME cardshuffler_failed
-          COMMAND sh -c "echo FOO | $<TARGET_FILE:cardshuffler>" )
+set( SRCS
+     main.cpp
+     DeckApplicationTest.cpp
+     )
 
-add_test( NAME cardshuffler_success
-          COMMAND sh -c "echo n | $<TARGET_FILE:cardshuffler>" )
-
-set_tests_properties( cardshuffler_failed
-                      PROPERTIES WILL_FAIL True )
+add_executable( moduletest )
+target_sources( moduletest PRIVATE ${SRCS} )
+target_link_libraries( moduletest PRIVATE cards ApprovalTests::ApprovalTests GTest::gtest )

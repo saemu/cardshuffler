@@ -21,6 +21,7 @@ conan_cmake_run( REQUIRES
                  gtest/1.10.0
                  spdlog/1.5.0
                  benchmark/1.5.0
+                 approvaltests.cpp/10.7.1
                  BASIC_SETUP NO_OUTPUT_DIRS
                  GENERATORS cmake_paths cmake_find_package
                  BUILD missing
@@ -30,11 +31,6 @@ include( ${CMAKE_BINARY_DIR}/conan_paths.cmake )
 
 find_package( fmt REQUIRED )
 find_package( spdlog REQUIRED )
-
-set( GTEST_MSVC_SEARCH "MD" )
-find_package( GTest REQUIRED )
-
-find_package( benchmark REQUIRED )
 
 add_subdirectory( src )
 
