@@ -70,25 +70,24 @@ jobs:
       - run:
           name: "install sonar-build dependencies"
           command: |
-            sudo apt-get update -q
-            sudo apt-get install -y -q unzip
-            wget -nv https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
-            unzip -qq build-wrapper-linux-x86.zip
-            sudo mv build-wrapper-linux-x86/* /usr/local/bin
-            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
-            unzip -qq sonar-scanner-cli-4.4.0.2170-linux.zip -d ../
+            sudo apt update -q
+            sudo apt install -y -q unzip openjdk-11-jre-headless
       - cmake:
           build_type: "Debug"
           enable_coverage: "On"
       - run:
           name: "execute sonar-build"
           command: |
+            wget -nv https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+            sudo unzip -qq  -j build-wrapper-linux-x86.zip -d /usr/local/bin
             mkdir -p build/sonar
             VERBOSE=1 build-wrapper-linux-x86-64 --out-dir sonar cmake --build build/ --target all
       - run:
           name: "sonar-scan"
           command: |
-            ~/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}
+            wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311.zip
+            unzip -qq sonar-scanner-cli-4.6.0.2311.zip
+            ./sonar-scanner-4.6.0.2311/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}
       - run:
           name: "Code Coverage"
           command: |
