@@ -82,6 +82,7 @@ jobs:
             sudo unzip -qq  -j build-wrapper-linux-x86.zip -d /usr/local/bin
             mkdir -p build/sonar
             VERBOSE=1 build-wrapper-linux-x86-64 --out-dir sonar cmake --build build/ --target all
+            cmake --build build --target test
       - run:
           name: "Code Coverage"
           command: |
