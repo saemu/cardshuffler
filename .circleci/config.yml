@@ -30,7 +30,7 @@ commands:
         default: "Release"
       enable_coverage:
         type: string
-        default: "Off"
+        default: "OFF"
     steps:
       - run:
           name: "CMake"
@@ -74,7 +74,7 @@ jobs:
             sudo apt install -y -q unzip openjdk-11-jre-headless
       - cmake:
           build_type: "Debug"
-          enable_coverage: "On"
+          enable_coverage: "ON"
       - run:
           name: "execute sonar-build"
           command: |
