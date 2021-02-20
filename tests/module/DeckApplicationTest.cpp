@@ -24,7 +24,6 @@ struct DeckApplicationTest : testing::Test {
 
     std::shared_ptr<spdlog::logger> logger = nullptr;
     std::shared_ptr<spdlog::sinks::sink> sink = nullptr;
-    DeckApplication application;
     std::stringstream input;
     std::stringstream output;
 };
@@ -32,7 +31,7 @@ struct DeckApplicationTest : testing::Test {
 TEST_F(DeckApplicationTest, ValidInput) {
     input << R"__(n
 )__";
-    application.run(input, *logger);
+    DeckApplication::run(input, *logger);
     Approvals::verify(output.str());
 }
 
@@ -40,6 +39,6 @@ TEST_F(DeckApplicationTest, InvalidInput) {
     input << R"__(foo
 )__";
 
-    EXPECT_THROW(application.run(input, *logger), std::invalid_argument);
+    EXPECT_THROW(DeckApplication::run(input, *logger), std::invalid_argument);
     Approvals::verify(output.str());
 }
