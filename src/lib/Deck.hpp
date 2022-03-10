@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "lib/Card.hpp"
+#include "Card.hpp"
 
 #include <vector>
 

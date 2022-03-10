@@ -7,5 +7,6 @@ set( SRCS
 
 add_subdirectory( lib )
 
-add_executable( cardshuffler ${SRCS} )
+add_executable( cardshuffler )
+target_sources( cardshuffler PRIVATE ${SRCS} )
 target_link_libraries( cardshuffler PRIVATE cards )

@@ -2,7 +2,7 @@
  * Copyright 2019, Samuel Brand
  */
 
-#include "lib/DeckApplication.hpp"
+#include "DeckApplication.hpp"
 #include "spdlog/sinks/null_sink.h"
 
 #include <gtest/gtest.h>

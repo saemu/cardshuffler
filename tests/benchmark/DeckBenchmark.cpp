@@ -4,7 +4,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include "lib/Deck.hpp"
+#include "Deck.hpp"
 
 static void shuffle(benchmark::State& state) {
     Deck deck;

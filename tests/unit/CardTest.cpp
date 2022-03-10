@@ -2,7 +2,7 @@
  * Copyright 2019, Samuel Brand
  */
 
-#include "lib/Card.hpp"
+#include "Card.hpp"
 
 #include <gtest/gtest.h>
 

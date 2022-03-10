@@ -4,7 +4,7 @@
 
 #include "DeckApplication.hpp"
 
-#include "lib/Card.hpp"
+#include "Card.hpp"
 
 #include <algorithm>
 #include <map>

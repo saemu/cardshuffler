@@ -4,7 +4,7 @@
 
 #include <ApprovalTests.hpp>
 
-#include "lib/DeckApplication.hpp"
+#include "DeckApplication.hpp"
 
 using namespace ApprovalTests;
 

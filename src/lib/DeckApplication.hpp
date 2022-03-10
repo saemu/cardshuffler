@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "lib/Deck.hpp"
+#include "Deck.hpp"
 
 namespace spdlog {
 class logger;

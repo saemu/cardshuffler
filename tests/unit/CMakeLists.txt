@@ -5,7 +5,8 @@
 set( SRCS
      CardTest.cpp
      DeckTest.cpp
-     DeckApplicationTest.cpp )
+     DeckApplicationTest.cpp
+     )
 
 add_executable( testrunner )
 target_sources( testrunner PRIVATE ${SRCS} )

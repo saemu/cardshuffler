@@ -2,8 +2,8 @@
  * Copyright 2019, Samuel Brand
  */
 
-#include "lib/Card.hpp"
-#include "lib/Deck.hpp"
+#include "Card.hpp"
+#include "Deck.hpp"
 
 #include <gtest/gtest.h>
 
