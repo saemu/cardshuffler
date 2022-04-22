@@ -19,7 +19,6 @@ include( ${CMAKE_BINARY_DIR}/conan.cmake )
 include( cmake/compiler_settings.cmake )
 
 conan_cmake_configure( REQUIRES
-                       fmt/8.1.1
                        gtest/1.11.0
                        spdlog/1.10.0
                        benchmark/1.6.1
@@ -33,7 +32,6 @@ conan_cmake_install( PATH_OR_REFERENCE ${CMAKE_BINARY_DIR}
                      BUILD missing
                      SETTINGS ${CONAN_SETTINGS} )
 
-find_package( fmt REQUIRED )
 find_package( spdlog REQUIRED )
 
 add_subdirectory( src )
