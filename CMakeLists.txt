@@ -8,7 +8,7 @@ project( cardshuffler )
 
 if( NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake" )
     message( STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan" )
-    file( DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.16.1/conan.cmake"
+     file( DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/0.18.1/conan.cmake"
           "${CMAKE_BINARY_DIR}/conan.cmake"
           TLS_VERIFY ON )
 endif()
@@ -19,11 +19,11 @@ include( ${CMAKE_BINARY_DIR}/conan.cmake )
 include( cmake/compiler_settings.cmake )
 
 conan_cmake_configure( REQUIRES
-                       fmt/6.1.2
-                       gtest/1.10.0
-                       spdlog/1.5.0
-                       benchmark/1.5.0
-                       approvaltests.cpp/10.7.1
+                       fmt/8.1.1
+                       gtest/1.11.0
+                       spdlog/1.10.0
+                       benchmark/1.6.1
+                       approvaltests.cpp/10.12.2
                        GENERATORS cmake_find_package
                        )
 
