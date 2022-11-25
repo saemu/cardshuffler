@@ -65,6 +65,7 @@ jobs:
       - image: conanio/gcc10
     working_directory: ~/cardshuffler
     steps:
+      - install_ninja
       - checkout
       - setup_conan
       - run:
