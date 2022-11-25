@@ -7,7 +7,7 @@
 #include "Deck.hpp"
 
 static void shuffle(benchmark::State& state) {
-    Deck deck;
+    Deck deck(0U);
     for (auto _ : state) {
         // This code gets timed
         deck.shuffle();
@@ -15,8 +15,8 @@ static void shuffle(benchmark::State& state) {
 }
 
 static void draw(benchmark::State& state) {
-    Deck deck;
-    for( auto _ : state ) {
+    Deck deck(0U);
+    for (auto _ : state) {
         while (deck.hasNext()) {
             benchmark::DoNotOptimize(deck.drawNextCard());
         }

@@ -4,13 +4,14 @@
 
 #include "DeckApplication.hpp"
 
-#include "Card.hpp"
+#include <spdlog/fmt/ostr.h>
+#include <spdlog/spdlog.h>
 
 #include <algorithm>
 #include <map>
-#include <spdlog/fmt/ostr.h>
-#include <spdlog/spdlog.h>
 #include <string>
+
+#include "Card.hpp"
 
 using namespace std::string_literals;
 
@@ -48,9 +49,9 @@ bool readAnswer(std::istream& input, spdlog::logger& output) {
 
 }  // namespace
 
-void DeckApplication::run(std::istream& input, spdlog::logger& output) {
+void DeckApplication::run(std::random_device::result_type seed, std::istream& input, spdlog::logger& output) {
     bool running{true};
-    Deck deck;
+    Deck deck{seed};
     do {
         deck.shuffle();
         do {

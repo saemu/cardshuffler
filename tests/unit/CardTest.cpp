@@ -2,16 +2,16 @@
  * Copyright 2019, Samuel Brand
  */
 
-#include "Card.hpp"
-
 #include <gtest/gtest.h>
+
+#include "Card.hpp"
 
 TEST(CardTest, ConstructorNoThrowTest) {
     EXPECT_NO_THROW(Card(Card::Suit::eSpades, Card::Rank::eAce));
 }
 
 TEST(CardTest, ConstructorValidTest) {
-    EXPECT_NO_THROW(Card card(Card::Suit::eClubs, Card::Rank::eKing));
+    EXPECT_NO_THROW(Card Card(Card::Suit::eClubs, Card::Rank::eKing));
 }
 
 TEST(CardTest, CopyConstructorTest) {

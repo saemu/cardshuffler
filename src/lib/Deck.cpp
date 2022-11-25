@@ -4,38 +4,25 @@
 
 #include "Deck.hpp"
 
-#include "Card.hpp"
-
 #include <algorithm>
 #include <random>
 
-namespace {
-#ifndef NDEBUG
-constexpr auto seed() {
-    return 1U;
-}
-#else
-auto seed() {
-    std::random_device device;
-    return device();
-}
-#endif
-}
+#include "Card.hpp"
 
-Deck::Deck() : mCurrent(mCards.rbegin()) {}
+Deck::Deck(std::random_device::result_type seed) : seed_(seed), current_(cards_.rbegin()) {}
 
 void Deck::shuffle() {
-    std::mt19937 randomEngine(seed());
-    std::shuffle(std::begin(mCards), std::end(mCards), randomEngine);
-    mCurrent = mCards.rbegin();
+    std::mt19937 randomEngine(seed_);
+    std::shuffle(std::begin(cards_), std::end(cards_), randomEngine);
+    current_ = cards_.rbegin();
 }
 
 Card Deck::drawNextCard() {
-    Card card(*mCurrent);
-    ++mCurrent;
+    Card card(*current_);
+    ++current_;
     return card;
 }
 
 bool Deck::hasNext() const {
-    return mCurrent != mCards.rend();
+    return current_ != cards_.rend();
 }

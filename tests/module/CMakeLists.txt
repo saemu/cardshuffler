@@ -7,3 +7,6 @@ set( SRCS
 add_executable( moduletest )
 target_sources( moduletest PRIVATE ${SRCS} )
 target_link_libraries( moduletest PRIVATE cards ApprovalTests::ApprovalTests GTest::gtest )
+
+add_test( NAME moduletest
+          COMMAND moduletest )

@@ -4,19 +4,22 @@
 
 #pragma once
 
-#include "Card.hpp"
-
+#include <random>
 #include <vector>
+
+#include "Card.hpp"
 
 class Deck {
 public:
     Deck();
+    explicit Deck(std::random_device::result_type seed);
     void shuffle();
     Card drawNextCard();
     bool hasNext() const;
 
 private:
-    std::vector<Card> mCards{
+    std::random_device::result_type seed_{0U};
+    std::vector<Card> cards_{
         Card(Card::Suit::eSpades, Card::Rank::eAce),     Card(Card::Suit::eSpades, Card::Rank::eKing),    Card(Card::Suit::eSpades, Card::Rank::eQueen),
         Card(Card::Suit::eSpades, Card::Rank::eJack),    Card(Card::Suit::eSpades, Card::Rank::eTen),     Card(Card::Suit::eSpades, Card::Rank::eNine),
         Card(Card::Suit::eSpades, Card::Rank::eEight),   Card(Card::Suit::eSpades, Card::Rank::eSeven),   Card(Card::Suit::eSpades, Card::Rank::eSix),
@@ -29,5 +32,5 @@ private:
         Card(Card::Suit::eClubs, Card::Rank::eAce),      Card(Card::Suit::eClubs, Card::Rank::eKing),     Card(Card::Suit::eClubs, Card::Rank::eQueen),
         Card(Card::Suit::eClubs, Card::Rank::eJack),     Card(Card::Suit::eClubs, Card::Rank::eTen),      Card(Card::Suit::eClubs, Card::Rank::eNine),
         Card(Card::Suit::eClubs, Card::Rank::eEight),    Card(Card::Suit::eClubs, Card::Rank::eSeven),    Card(Card::Suit::eClubs, Card::Rank::eSix)};
-    std::vector<Card>::const_reverse_iterator mCurrent;
+    std::vector<Card>::const_reverse_iterator current_;
 };

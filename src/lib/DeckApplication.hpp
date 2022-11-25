@@ -12,5 +12,5 @@ class logger;
 
 class DeckApplication {
 public:
-    static void run(std::istream& input, spdlog::logger& output);
+    static void run(std::random_device::result_type seed, std::istream& input, spdlog::logger& output);
 };

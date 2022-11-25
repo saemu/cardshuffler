@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <spdlog/spdlog.h>
 #include <spdlog/sinks/ostream_sink.h>
+#include <spdlog/spdlog.h>
 
 #include <ApprovalTests.hpp>
 
@@ -9,7 +9,6 @@
 using namespace ApprovalTests;
 
 struct DeckApplicationTest : testing::Test {
-
     void SetUp() override {
         input.clear();
         output.clear();
@@ -18,7 +17,7 @@ struct DeckApplicationTest : testing::Test {
         logger = std::make_shared<spdlog::logger>("testlogger", sink);
     }
 
-    void TearDown() override  {
+    void TearDown() override {
         spdlog::drop_all();
     }
 
@@ -31,7 +30,7 @@ struct DeckApplicationTest : testing::Test {
 TEST_F(DeckApplicationTest, ValidInput) {
     input << R"__(n
 )__";
-    DeckApplication::run(input, *logger);
+    DeckApplication::run(0U, input, *logger);
     Approvals::verify(output.str());
 }
 
@@ -39,6 +38,6 @@ TEST_F(DeckApplicationTest, InvalidInput) {
     input << R"__(foo
 )__";
 
-    EXPECT_THROW(DeckApplication::run(input, *logger), std::invalid_argument);
+    EXPECT_THROW(DeckApplication::run(0U, input, *logger), std::invalid_argument);
     Approvals::verify(output.str());
 }

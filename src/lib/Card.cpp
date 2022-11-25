@@ -29,10 +29,10 @@ const std::map<Card::Suit, std::string> SuitStrings{{Card::Suit::eClubs,    "Clu
 // clang-format on
 }  // namespace
 
-template<>
+template <>
 struct fmt::formatter<Card::Suit> : fmt::formatter<std::string> {
-    template<typename FormatContext>
-    auto format(Card::Suit suit, FormatContext& context) {
+    template <typename FormatContext>
+    auto format(Card::Suit suit, FormatContext &context) {
         const auto suitString = SuitStrings.find(suit);
         if (suitString == std::cend(SuitStrings)) {
             throw std::invalid_argument("Given Suit is invalid");
@@ -41,10 +41,10 @@ struct fmt::formatter<Card::Suit> : fmt::formatter<std::string> {
     }
 };
 
-template<>
+template <>
 struct fmt::formatter<Card::Rank> : fmt::formatter<std::string> {
-    template<typename FormatContext>
-    auto format(Card::Rank rank, FormatContext& context) {
+    template <typename FormatContext>
+    auto format(Card::Rank rank, FormatContext &context) {
         const auto rankString = RankStrings.find(rank);
         if (rankString == std::cend(RankStrings)) {
             throw std::invalid_argument("Given Rank is invalid");
