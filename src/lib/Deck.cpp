@@ -12,7 +12,7 @@
 Deck::Deck(std::random_device::result_type seed) : seed_(seed), current_(cards_.rbegin()) {}
 
 void Deck::shuffle() {
-    std::mt19937 randomEngine(seed_);
+    std::mt19937 randomEngine{seed_};
     std::shuffle(std::begin(cards_), std::end(cards_), randomEngine);
     current_ = cards_.rbegin();
 }

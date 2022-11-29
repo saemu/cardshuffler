@@ -30,7 +30,7 @@ struct DeckApplicationTest : testing::Test {
 TEST_F(DeckApplicationTest, ValidInput) {
     input << R"__(n
 )__";
-    DeckApplication::run(0U, input, *logger);
+    DeckApplication::run(std::mt19937::default_seed, input, *logger);
     Approvals::verify(output.str());
 }
 
@@ -38,6 +38,6 @@ TEST_F(DeckApplicationTest, InvalidInput) {
     input << R"__(foo
 )__";
 
-    EXPECT_THROW(DeckApplication::run(0U, input, *logger), std::invalid_argument);
+    EXPECT_THROW(DeckApplication::run(std::mt19937::default_seed, input, *logger), std::invalid_argument);
     Approvals::verify(output.str());
 }

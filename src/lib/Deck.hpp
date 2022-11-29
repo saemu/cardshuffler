@@ -11,7 +11,6 @@
 
 class Deck {
 public:
-    Deck();
     explicit Deck(std::random_device::result_type seed);
     void shuffle();
     Card drawNextCard();
