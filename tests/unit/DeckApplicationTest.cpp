@@ -64,6 +64,7 @@ TEST_F(DeckApplicationTest, RepeatableTest) {
         std::istringstream input("no");
         std::ostringstream output;
         auto sink = std::make_shared<spdlog::sinks::ostream_sink_mt>(output);
+        sink->set_pattern("%v");
         spdlog::logger textLogger("deckapplicationtest", sink);
         EXPECT_NO_THROW(DeckApplication::run(0U, input, textLogger));
         return output.str();
